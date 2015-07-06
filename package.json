@@ -1,19 +1,19 @@
 {
-  "name": "OpenShift-Sample-App",
+  "name": "BlueRiderHomepage",
   "version": "1.0.0",
-  "description": "OpenShift Sample Application",
+  "description": "Homepage of bluerider",
   "keywords": [
-    "OpenShift",
+    "bluerider",
     "Node.js",
     "application",
-    "openshift"
+    "Haochen YAO"
   ],
   "author": {
-    "name": "OpenShift",
-    "email": "ramr@example.org",
-    "url": "http://www.openshift.com/"
+    "name": "Haochen YAO",
+    "email": "pro.haochenyao@gmail.com",
+    "url": ""
   },
-  "homepage": "http://www.openshift.com/",
+  "homepage": "",
   "repository": {
     "type": "git",
     "url": "https://github.com/openshift/origin-server"
@@ -25,7 +25,13 @@
   },
 
   "dependencies": {
-    "express": "~3.4.4"
+    "bcrypt-nodejs": "~0.0.3",
+    "consolidate": "~0.9.1",
+    "express": "~3.5",
+    "mongodb": "*",
+    "swig": "~0.14.0",
+    "validator": "~1.1.3",
+    "nodemon": "*"
   },
   "devDependencies": {},
   "bundleDependencies": [],
