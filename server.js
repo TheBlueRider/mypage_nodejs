@@ -13,8 +13,8 @@ var express = require('express')
  */
  var host = process.env.OPENSHIFT_NODEJS_IP;
  var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
- var url = 'mongodb://admin:bvhv6HkHHjhf@'+host+':'+port;
- MongoClient.connect(url+'/bluerider', function(err, db) {
+ var mongo_url = process.env.OPENSHIFT_MONGODB_DB_URL;
+ MongoClient.connect(mongo_url+'/bluerider', function(err, db) {
      "use strict";
      if(err) throw err;
 
