@@ -11,7 +11,9 @@ var express = require('express')
 /**
  *  Define the sample application.
  */
- var url = 'mongodb://admin:bvhv6HkHHjhf@127.7.206.2:27017'
+ var host = process.env.OPENSHIFT_NODEJS_IP;
+ var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+ var url = 'mongodb://admin:bvhv6HkHHjhf@'+host+':'+port;
  MongoClient.connect(url+'/bluerider', function(err, db) {
      "use strict";
      if(err) throw err;
@@ -30,6 +32,6 @@ var express = require('express')
      // Application routes
      routes(app, db);
 
-     app.listen(8082);
+     app.listen(port);
      console.log('Express server listening on port 8082');
  });
