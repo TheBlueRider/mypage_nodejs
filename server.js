@@ -12,7 +12,7 @@ var express = require('express')
  *  Define the sample application.
  */
  var url = 'mongodb://admin:bvhv6HkHHjhf@127.7.206.2:27017'
- MongoClient.connect(url+'/stockdb', function(err, db) {
+ MongoClient.connect(url+'/bluerider', function(err, db) {
      "use strict";
      if(err) throw err;
 
