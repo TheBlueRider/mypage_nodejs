@@ -16,7 +16,7 @@ function StockDAO(db) {
         console.log("inserting stock: " + stock_id);
 
         // Build a new stock
-        var stock = {"stock_id": 'sh'+stock_id,
+        var stock = {"stock_id": stock_id,
                 "create_date": new Date()}
 
         // now insert the stock
