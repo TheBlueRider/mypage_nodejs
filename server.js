@@ -11,8 +11,7 @@ var express = require('express')
 /**
  *  Define the sample application.
  */
- var url = 'mongodb://admin:bvhv6HkHHjhf'+
-              '@'+OPENSHIFT_MONGODB_DB_HOST+':'+OPENSHIFT_MONGODB_DB_PORT;
+ var url = 'mongodb://admin:bvhv6HkHHjhf@bluerider.rhcloud.com:65211'
  MongoClient.connect(url+'/stockdb', function(err, db) {
      "use strict";
      if(err) throw err;
