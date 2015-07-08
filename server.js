@@ -32,6 +32,6 @@ var express = require('express')
      // Application routes
      routes(app, db);
 
-     app.listen(port);
+     app.listen(host, port);
      console.log('Express server listening on port 8082');
  });
