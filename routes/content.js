@@ -13,6 +13,11 @@ function ContentHandler (db) {
         return res.render('index', {});
     }
 
+    this.gestionstock = function(req, res, next) {
+      "use strict"
+      console.log("commencer de gerer stock");
+    }
+
     this.displayStocksPage = function(req, res, next) {
         "use strict";
         console.log("Cookies: ", req.cookies);
