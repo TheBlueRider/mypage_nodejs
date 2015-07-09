@@ -48,6 +48,7 @@ function ContentHandler (db) {
       return res.render("newstock", {});
     }
 
+
     this.handleNewStock = function(req, res, next) {
         "use strict";
 
@@ -66,6 +67,12 @@ function ContentHandler (db) {
             // now redirect to the blog permalink
             return res.redirect("/mystocks/");
         });
+    }
+
+
+    this.cadeaubaobao = function(req, res, next) {
+        "use strict";
+        return res.render("cadeau", {});
     }
 }
 
