@@ -79,6 +79,12 @@ function ContentHandler (db) {
         "use strict";
         return res.render("cadeau", {});
     }
+
+
+    this.commingsoon = function(req, res, next) {
+        "use strict";
+        return res.render("comming", {});
+    }
 }
 
 module.exports = ContentHandler;

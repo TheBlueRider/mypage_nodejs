@@ -11,7 +11,8 @@ module.exports = exports = function(app, db) {
     // The main page of the blog, filtered by tag
     app.get('/newstock', contentHandler.displayNewStockPage);
     app.post('/newstock', contentHandler.handleNewStock);
-    app.get('/baobao', contentHandler.cadeaubaobao);
+    //app.get('/baobao', contentHandler.cadeaubaobao);
+    app.get('/baobao', contentHandler.commingsoon);
     // Error handling middleware
     app.use(ErrorHandler);
 }
