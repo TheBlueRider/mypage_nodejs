@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+
 My homepage
 
-http://openshift.github.io/documentation/oo_cartridge_guide.html#nodejs
+bluerider-haochenyao.rhcloud.com
+
+Base on nodejs and mongodb. 
