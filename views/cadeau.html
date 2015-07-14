@@ -13,6 +13,46 @@
 			margin:0;
 			height:100%;
 		}
+
+    .pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace.pace-inactive .pace-progress {
+  display: none;
+}
+
+.pace .pace-progress {
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 0;
+  height: 5rem;
+  width: 5rem;
+
+  -webkit-transform: translate3d(0, 0, 0) !important;
+  -ms-transform: translate3d(0, 0, 0) !important;
+  transform: translate3d(0, 0, 0) !important;
+}
+
+.pace .pace-progress:after {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: .5rem;
+  content: attr(data-progress-text);
+  font-family: "Helvetica Neue", sans-serif;
+  font-weight: 100;
+  font-size: 5rem;
+  line-height: 1;
+  text-align: right;
+  color: rgba(0, 0, 0, 0.19999999999999996);
+}
 	</style>
 
 	<!-- copy these lines to your document head: -->
@@ -21,14 +61,14 @@
 
 
 	<!-- end copy -->
-
+  <script src="js/pace.min.js"></script>
   </head>
   <body>
 
 	<!-- copy these lines to your document: -->
 
-	<div id="cadeau_hype_container" style="margin:auto;position:relative;width:1200px;height:1200px;overflow:hidden;" aria-live="polite">
-		<script type="text/javascript" charset="utf-8" src="js/cadeau.hyperesources/cadeau_hype_generated_script.js?65186"></script>
+	<div id="cadeau_hype_container" style="margin:auto;position:relative;width:320px;height:568px;overflow:hidden;" aria-live="polite">
+		<script type="text/javascript" charset="utf-8" src="js/cadeau.hyperesources/cadeau_hype_generated_script.js?74813"></script>
 	</div>
 
 	<!-- end copy -->
@@ -41,44 +81,88 @@
 
 	<div style="display:none">
 
-		<div></div>
-		<div>个人印象
-</div>
-		<div>姓名：鲍鲍</div>
-		<div>炉石
-</div>
-		<div>特长：J’sais pas</div>
-		<div>玩
-</div>
-		<div>性别：女</div>
 		<div>旅行
 </div>
-		<div>甜点
-</div>
+		<div>性别：女</div>
 		<div>芒果
-</div>
-		<div>上大
-</div>
-		<div>智商：时高时低</div>
-		<div>棒棒糖
-</div>
-		<div>程序母猿
 </div>
 		<div>UTBM
 
 </div>
-		<div>巴黎
+		<div>上大
 </div>
+		<div></div>
+		<div>炉石
+</div>
+		<div>棒棒糖
+</div>
+		<div>出生：18/07/1990</div>
+		<div>甜点
+</div>
+		<div>程序母猿
+</div>
+		<div>姓名：鲍鲍</div>
 		<div>la fin
 </div>
 		<div>Joyeaux anniverssaire
 </div>
 		<div>2 
 </div>
-		<div>3</div>
 		<div>1 
 </div>
 		<div>0 
+</div>
+		<div>3 
+</div>
+		<div>3</div>
+		<div>阿狸
+</div>
+		<div>出生：18/07/1990
+</div>
+		<div>Lolipop
+</div>
+		<div>Paris
+</div>
+		<div>巴黎
+</div>
+		<div>chocolate? book?...</div>
+		<div>Enjoy it</div>
+		<div>生日送什么好呢？
+</div>
+		<div>Hi, 你好吗
+</div>
+		<div>就送这个吧</div>
+		<div>次</div>
+		<div>，
+</div>
+		<div>。
+</div>
+		<div>欢</div>
+		<div>相</div>
+		<div>希
+</div>
+		<div>，</div>
+		<div>吧</div>
+		<div>送</div>
+		<div>识
+</div>
+		<div>望</div>
+		<div>第</div>
+		<div>礼</div>
+		<div>多</div>
+		<div>My old friend, it’s just for you
+</div>
+		<div>你</div>
+		<div>一
+</div>
+		<div>物</div>
+		<div>年</div>
+		<div>喜</div>
+		<div>Laisse...
+</div>
+		<div>Mon souvenir...
+</div>
+		<div>...te suivir...
 </div>
 
 	</div>

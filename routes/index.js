@@ -12,7 +12,7 @@ module.exports = exports = function(app, db) {
     app.get('/newstock', contentHandler.displayNewStockPage);
     app.post('/newstock', contentHandler.handleNewStock);
     //app.get('/baobao', contentHandler.cadeaubaobao);
-    app.get('/baobao', contentHandler.commingsoon);
+    app.get('/baobao', contentHandler.cadeaubaobao);
     // Error handling middleware
     app.use(ErrorHandler);
 }
