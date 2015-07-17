@@ -16,11 +16,11 @@ var express = require('express')
  var host = process.env.OPENSHIFT_NODEJS_IP;
  var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
  var mongo_url = process.env.OPENSHIFT_MONGODB_DB_URL;
- //MongoClient.connect(mongo_url+'/bluerider', function(err, db) {
- MongoClient.connect('mongodb://localhost:27017/stockdb', function(err, db) {
+ MongoClient.connect(mongo_url+'/bluerider', function(err, db) {
+ //MongoClient.connect('mongodb://localhost:27017/stockdb', function(err, db) {
      "use strict";
      if(err) throw err;
-     
+
      // Register our templating engine
      app.engine('html', cons.swig);
      app.set('view engine', 'html');
@@ -41,8 +41,8 @@ var express = require('express')
      //create async process
      processhandle.createprocess();
 
-     //var server = app.listen(port, host);
-     var server = app.listen(8082);
+     var server = app.listen(port, host);
+     //var server = app.listen(8082);
 
      //Handle client's socket
      var sockethandle = new SocketHandle(server, eventEmitter);
