@@ -28,7 +28,7 @@ function ContentHandler (db) {
 
             return res.render('mystocks', {
                 title: 'mystocks',
-                mystocks: results
+                  mystocks: results
             });
         });
     }
@@ -47,6 +47,7 @@ function ContentHandler (db) {
             });
         });
     }
+
 
     this.displayNewStockPage = function(req, res, next) {
       "use strict";
@@ -79,6 +80,7 @@ function ContentHandler (db) {
         "use strict";
         return res.render("cadeau", {});
     }
+
 
 
     this.commingsoon = function(req, res, next) {

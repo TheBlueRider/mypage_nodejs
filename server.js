@@ -5,9 +5,11 @@ var express = require('express')
   , app = express() // Web framework to handle routing requests
   , cons = require('consolidate') // Templating library adapter for Express
   , MongoClient = require('mongodb').MongoClient // Driver for connecting to MongoDB
-  , routes = require('./routes'); // Routes for our application
-
-
+  , routes = require('./routes') // Routes for our application // Routes for our application
+  , ProcessHandle = require('./routes/process.js')
+  , SocketHandle = require('./routes/socket.js')
+  , events = require('events')
+  , eventEmitter = new events.EventEmitter();
 /**
  *  Define the sample application.
  */
@@ -33,7 +35,20 @@ var express = require('express')
      // Application routes
      routes(app, db);
 
-     app.listen(port, host);
-     //app.listen(8082);
+     //Handle async process
+     var processhandle = new ProcessHandle(db, eventEmitter);
+
+     //create async process
+     processhandle.createprocess();
+
+     var server = app.listen(port, host);
+     //var server = app.listen(8082);
+
+     //Handle client's socket
+     var sockethandle = new SocketHandle(server, eventEmitter);
+
+     //create socket to each client
+     sockethandle.createsocket();
+
      console.log('Express server listening on port 8082');
  });

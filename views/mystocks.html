@@ -1,16 +1,29 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="stockapp">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>Blue Rider</title>
-  <style>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+  <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script>
+      var socket = io.connect('http://localhost:8082');
+      socket.on('newprice', function(message) {
+              console.log('new price is: ' + message[0]);
+      })
 
-  </style>
+      var myApp = angular.module('stockapp',[]);
+
+      myApp.controller('StockController', ['$scope', function($scope) {
+        $scope.yourname = 'yao';
+      }]);
+  </script>
 </head>
 <body>
+<div ng-controller="StockController">
+  {{yourname}}
 {% for stocks in mystocks %}
-stocks {{stocks['stock_id']}}
 <object type="application/x-shockwave-flash" data="http://finance.sina.com.cn/flash/cn.swf?" width="560" height="490" id="flash" style="visibility: visible;">
   <param name="allowFullScreen" value="true">
   <param name="allowScriptAccess" value="always">
@@ -20,6 +33,7 @@ stocks {{stocks['stock_id']}}
 </script>
 <br>
 {% endfor %}
+</div>
 </body>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
