@@ -14,7 +14,7 @@
 
   <script>
       var price = 'none';
-      var socket = io.connect('https://bluerider-haochenyao.rhcloud.com:8443');
+      var socket = io.connect('http://bluerider-haochenyao.rhcloud.com:8000');
       //var socket = io.connect('http://localhost:8082');
       socket.on('newinfos', function(message) {
         var index = 0;
