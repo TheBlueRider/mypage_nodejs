@@ -12,8 +12,8 @@
 
   <script>
       var price = 'none';
-      var socket = io.connect('https://bluerider-haochenyao.rhcloud.com:8443');
-      //var socket = io.connect('http://localhost:8082');
+      //var socket = io.connect('https://bluerider-haochenyao.rhcloud.com:8443');
+      var socket = io.connect('http://localhost:8082');
       socket.on('newinfos', function(message) {
         var index = 0;
         $('#stock_table tr').each(function() {
@@ -91,7 +91,6 @@
     </table>
   </div>
 </div>
-  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
