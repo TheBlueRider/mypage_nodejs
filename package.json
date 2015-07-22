@@ -37,7 +37,8 @@
     "jsdom": "3.1.2",
     "request": "*",
     "socket.io": "*",
-    "bootstrap": "*"
+    "bootstrap": "*",
+    "iconv-lite": "*"
    },
   "devDependencies": {},
   "bundleDependencies": [],
