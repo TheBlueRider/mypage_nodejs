@@ -4,12 +4,10 @@ var ContentHandler = require('./content')
 module.exports = exports = function(app, db, eventEmitter) {
     var contentHandler = new ContentHandler(db, eventEmitter);
 
-    // The main page of the blog
     app.get('/', contentHandler.displayMainPage);
     app.get('/index', contentHandler.displayIndexPage);
-
     app.get('/mystocks', contentHandler.displayStocksPage);
-    // The main page of the blog, filtered by tag
+    app.get('/candlestick/:stock_id', contentHandler.displayCandlestick);
     app.get('/newstock', contentHandler.displayNewStockPage);
     app.post('/newstock', contentHandler.handleNewStock);
     //app.get('/baobao', contentHandler.cadeaubaobao);

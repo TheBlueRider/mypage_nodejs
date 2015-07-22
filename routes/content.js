@@ -37,6 +37,15 @@ function ContentHandler (db, eventEmitter) {
         });
     }
 
+    this.displayCandlestick = function(req, res, next) {
+      "use strict"
+
+      var stock_id = req.params.stock_id;
+      return res.render('candlestick', {
+          stock_id: 'sh'+stock_id
+      });
+    }
+
     this.displayStockDetailPage = function(req, res, next) {
         "use strict";
 

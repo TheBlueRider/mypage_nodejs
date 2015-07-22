@@ -44,8 +44,10 @@ var express = require('express')
      eventEmitter.on('newstock', function (message) {
        processhandle.restartprocess();
      });
+
      var server = app.listen(port, host);
      //var server = app.listen(8082);
+
      //Handle client's socket
      var sockethandle = new SocketHandle(server, eventEmitter);
 
