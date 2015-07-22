@@ -14,20 +14,26 @@
 
   <script>
       var price = 'none';
-      var socket = io.connect('bluerider-haochenyao.rhcloud.com');
+      var socket = io.connect('https://bluerider-haochenyao.rhcloud.com');
       socket.on('newinfos', function(message) {
-      console.log(message);
-              var index = 0;
-              $('#stock_table tr').each(function() {
-                var stock_id = $(this).find(".stockid").html();
-                if (stock_id != undefined && message[index] != undefined) {
-                  $(this).find(".stockname").html(message[index][0]);
-                  $(this).find(".priceyesclose").html(message[index][2]);
-                  $(this).find(".pricetodopen").html(message[index][1]);
-                  $(this).find(".pricenow").html(message[index][3]);
-                  index++;
-                }
-              });
+        var index = 0;
+        $('#stock_table tr').each(function() {
+        var stock_id = $(this).find(".stockid").html();
+        if (stock_id != undefined && message[index] != undefined) {
+        $(this).find(".stockname").html(message[index][0]);
+        $(this).find(".priceyesclose").html(message[index][2]);
+        $(this).find(".pricetodopen").html(message[index][1]);
+        $(this).find(".pricenow").html(message[index][3]);
+        index++;
+
+        if (message[index][3] < message[index][2])
+          $(this).find(".pricenow").css("color", "green");
+        else if (message[index][3] > message[index][2])
+          $(this).find(".pricenow").css("color", "red");
+        else
+          $(this).find(".pricenow").css("color", "black");
+      }
+    });
       });
 
   </script>
