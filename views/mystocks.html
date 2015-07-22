@@ -1,46 +1,92 @@
 <!doctype html>
-<html lang="en" ng-app="stockapp">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
   <title>Blue Rider</title>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
   <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
   <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+  <script src="  http://hq.sinajs.cn/list=sh601006"></script>
+
   <script>
-      var myApp = angular.module('stockapp',[]);
-      myApp.config(function($interpolateProvider){
-          $interpolateProvider.startSymbol('--').endSymbol('--');
-      });
       var price = 'none';
-      var socket = io.connect('http://localhost:8082');
-      socket.on('newprice', function(message) {
-              console.log('new price is: ' + message);
-              price = message[0];
+      var socket = io.connect('bluerider-haochenyao.rhcloud.com');
+      socket.on('newinfos', function(message) {
+      console.log(message);
+              var index = 0;
+              $('#stock_table tr').each(function() {
+                var stock_id = $(this).find(".stockid").html();
+                if (stock_id != undefined && message[index] != undefined) {
+                  $(this).find(".stockname").html(message[index][0]);
+                  $(this).find(".priceyesclose").html(message[index][2]);
+                  $(this).find(".pricetodopen").html(message[index][1]);
+                  $(this).find(".pricenow").html(message[index][3]);
+                  index++;
+                }
+              });
       });
 
-      myApp.controller('StockController', ['$scope', function($scope) {
-          $scope.stock = price;
-      }]);
   </script>
 </head>
 <body>
-<div ng-controller="StockController">
---stock--
-{% for stocks in mystocks %}
+  <nav class="navbar navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mongodb-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">TheBlueRider</a>
+      </div>
 
-<object type="application/x-shockwave-flash" data="http://finance.sina.com.cn/flash/cn.swf?" width="560" height="490" id="flash" style="visibility: visible;">
-  <param name="allowFullScreen" value="true">
-  <param name="allowScriptAccess" value="always">
-  <param name="wmode" value="transparent">
-  <param name="flashvars" value="symbol=sh{{stocks['stock_id']}}&amp;code=iddg64geja6fea4eafh9jbj7c5j4ie5d&amp;s=3">
-</object>
-</script>
-<br>
-{% endfor %}
+      <div class="collapse navbar-collapse" id="mongodb-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">股票<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="stock">
+              <li><a href="/newstock">添加</a></li>
+                <li><a href="/mystocks">查看</a></li>
+            </ul>
+          </li>
+          <li><a href="#" target="_blank">Contact</a></li>
+        </ul>
+      </div><!-- END .navbar-collapse -->
+    </div><!-- END .container-fluid -->
+  </nav>
+
+<div>
+  <div class="container">
+    <table class="table" id="stock_table">
+      <tr>
+        <th>代码</th>
+        <th>股票名</th>
+        <th>昨收</th>
+        <th>今开</th>
+        <th>现价</th>
+        <th>止损点</th>
+        <th>k线图</th>
+      </tr>
+      {% for stock in mystocks %}
+      <tr>
+        <td class="stockid">{{ stock['stock_id'] }}</td>
+        <td class="stockname"></td>
+        <td class="priceyesclose"></td>
+        <td class="pricetodopen"></td>
+        <td class="pricenow"></td>
+        <td class="positionclose"></td>
+        <td></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
 </div>
-</body>
-<script>
-
-</script>
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  </body>
 </html>

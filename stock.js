@@ -11,22 +11,34 @@ function StockDAO(db) {
 
     var stocks = db.collection("stocks");
 
-    this.insertEntry = function (stock_id, callback) {
+    this.insertEntry = function (stock_id, price_buy, number_buy, callback) {
         "use strict";
         console.log("inserting stock: " + stock_id);
+        var query = {"stock_id" : stock_id};
+        stocks.find(query).toArray(function(err, result) {
+          console.log(result.length);
+          if (result.length != 0)
+            return callback(err, 'exist');
+          else {
+            // Build a new stock
+            var stock = {"stock_id": stock_id,
+                    "create_date": new Date()}
+            if (price_buy != "")
+              stock['price_buy'] = price_buy;
 
-        // Build a new stock
-        var stock = {"stock_id": stock_id,
-                "create_date": new Date()}
+            if (number_buy != "")
+              stock['number_buy'] = number_buy;
 
-        // now insert the stock
-        stocks.insert(stock, function (err, result) {
-            "use strict";
+            // now insert the stock
+            stocks.insert(stock, function (err, result) {
+                "use strict";
 
-            if (err) return callback(err, null);
+                if (err) return callback(err, null);
 
-            console.log("Inserted new stock");
-            callback(err, stock_id);
+                console.log("Inserted new stock");
+                callback(err, stock_id);
+            });
+          }
         });
     }
 
@@ -50,10 +62,8 @@ function StockDAO(db) {
 
         stocks.find({}).toArray(function(err, items) {
             "use strict";
-            console.log(err);
             if (err) return callback(err, null);
 
-            console.log("Found " + items.length + " stocks");
 
             callback(err, items);
         });

@@ -33,7 +33,7 @@ var express = require('express')
      app.use(express.bodyParser());
 
      // Application routes
-     routes(app, db);
+     routes(app, db, eventEmitter);
 
      //Handle async process
      var processhandle = new ProcessHandle(db, eventEmitter);
@@ -41,6 +41,9 @@ var express = require('express')
      //create async process
      processhandle.createprocess();
 
+     eventEmitter.on('newstock', function (message) {
+       processhandle.restartprocess();
+     });
      var server = app.listen(port, host);
      //var server = app.listen(8082);
 

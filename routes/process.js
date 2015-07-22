@@ -3,10 +3,12 @@ var StockDAO = require('../stock').StockDAO;
 function ProccessHandle(db, eventEmitter) {
   var stocks = new StockDAO(db);
   var childprocess = require('child_process');
+  var gdprocess;
 
   this.createprocess = function(){
     stocks.getAllStocks(function(err, results) {
         "use strict";
+        console.log('start process');
         if (err) { console.log("error occured when execute mongo query"); return; }
         var stockstring = '';
 
@@ -15,12 +17,17 @@ function ProccessHandle(db, eventEmitter) {
           stockstring += 'sh'+results[index]['stock_id']+',';
         }
 
-        var gdprocess = childprocess.fork(__dirname + '/getdata.js', [stockstring]);
+        gdprocess = childprocess.fork(__dirname + '/getdata.js', [stockstring]);
         gdprocess.on('message', function(message) {
-          eventEmitter.emit('newprice', message);
+          eventEmitter.emit('newinfos', message);
         });
-
     });
+  }
+
+  this.restartprocess = function(){
+    gdprocess.kill('SIGHUP');
+    console.log('kill');
+    this.createprocess();
   }
 }
 

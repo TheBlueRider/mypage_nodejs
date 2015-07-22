@@ -1,11 +1,12 @@
 var ContentHandler = require('./content')
   , ErrorHandler = require('./error').errorHandler;
 
-module.exports = exports = function(app, db) {
-    var contentHandler = new ContentHandler(db);
+module.exports = exports = function(app, db, eventEmitter) {
+    var contentHandler = new ContentHandler(db, eventEmitter);
 
     // The main page of the blog
     app.get('/', contentHandler.displayMainPage);
+    app.get('/index', contentHandler.displayIndexPage);
 
     app.get('/mystocks', contentHandler.displayStocksPage);
     // The main page of the blog, filtered by tag

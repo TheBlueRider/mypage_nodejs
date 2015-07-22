@@ -1,29 +1,69 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Blue Rider</title>
-  <style>
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Home of haochen</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  </head>
+  <body>
+    <div class="wrapper">
 
-  </style>
-</head>
-<body>
-  <form method="post">
-    <table>
-      <tr>
-        <td class="label">
-          股票代码:
-        </td>
-        <td>
-          <input type="text" name="stock_id" value="{{stock_id}}">
-        </td>
-        <td class="error">  {{code_error}}
-        </td>
-      </tr>
-    </table>
+  <nav class="navbar navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mongodb-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">TheBlueRider</a>
+      </div>
 
-    <input type="submit">
-  </form>
-</body>
+      <div class="collapse navbar-collapse" id="mongodb-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">股票<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="stock">
+              <li><a href="/newstock">添加</a></li>
+                <li><a href="/mystocks">查看</a></li>
+            </ul>
+          </li>
+          <li><a href="#" target="_blank">Contact</a></li>
+        </ul>
+      </div><!-- END .navbar-collapse -->
+    </div><!-- END .container-fluid -->
+  </nav>
+
+  <div class="stock-form">
+    <form method="post">
+      <div class="form-group">
+        <label for="stock_id">股票代码:</label>
+        <input type="text" class="form-control" name="stock_id">
+      </div>
+
+      <div class="form-group">
+        <label for="price_buy">买入价格:</label>
+        <input type="text" class="form-control" name="price_buy">
+      </div>
+
+      <div class="form-group">
+        <label for="number_buy">买入数:</label>
+        <input type="text" class="form-control" name="number_buy">
+      </div>
+      <input type="submit" class="submit-button btn">
+    </form>
+    {% if err %}
+      <div class="err alert alert-danger" role="alert">  {{err}}</div>
+    {% endif %}
+  </div>
+
+
+  </div>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
 </html>

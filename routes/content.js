@@ -2,15 +2,19 @@ var StockDAO = require('../stock').StockDAO
   , sanitize = require('validator').sanitize; // Helper to sanitize form input
 
 /* The ContentHandler must be constructed with a connected db */
-function ContentHandler (db) {
+function ContentHandler (db, eventEmitter) {
     "use strict";
 
     var stocks = new StockDAO(db);
 
-
     this.displayMainPage = function(req, res, next) {
         "use strict";
         return res.render('index', {});
+    }
+
+    this.displayIndexPage = function(req, res, next) {
+        "use strict";
+        return res.render('present', {});
     }
 
     this.gestionstock = function(req, res, next) {
@@ -20,7 +24,7 @@ function ContentHandler (db) {
 
     this.displayStocksPage = function(req, res, next) {
         "use strict";
-        console.log("Cookies: ", req.cookies);
+        //console.log("Cookies: ", req.cookies);
         stocks.getAllStocks(function(err, results) {
             "use strict";
 
@@ -59,19 +63,35 @@ function ContentHandler (db) {
         "use strict";
 
         var stock_id = req.body.stock_id;
+        var price_buy = req.body.price_buy;
+        var number_buy = req.body.number_buy;
 
         if (!stock_id) {
-            var errors = "Stock must contain a Stock_ID";
-            return res.redirect("/newstock/");
+            var errors = "请输入股票代码";
+            return res.render("newstock", {err: errors});
         }
 
-        stocks.insertEntry(stock_id,  function(err, stock_id) {
+        if (isNaN(price_buy)) {
+            var errors = "价格必须是数字";
+            return res.render("newstock", {err: errors});
+        }
+
+
+        if (isNaN(number_buy)) {
+            var errors = "数量必须是数字";
+            return res.render("newstock", {err: errors});
+        }
+
+        stocks.insertEntry(stock_id, price_buy, number_buy,  function(err, callbackinfo) {
             "use strict";
-
             if (err) return next(err);
-
+            if (callbackinfo == 'exist') {
+              console.log('return newstock');
+              return res.render("newstock", {err: "股票已经存在于数据库"});
+            }
+            eventEmitter.emit('newstock', 'newstock');
             // now redirect to the blog permalink
-            return res.redirect("/mystocks/");
+            return res.redirect("/mystocks");
         });
     }
 

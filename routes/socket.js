@@ -3,10 +3,16 @@
 function SocketHandle(server, eventEmitter) {
   this.createsocket = function(){
     var io = require('socket.io')(server);
+    var messagehistory=null;
     io.sockets.on('connection', function (socket) {
        console.log('Un client est connecté !');
-       eventEmitter.on('newprice', function (message) {
-           socket.emit('newprice', message);
+       if (messagehistory != null) {
+         console.log('send history');
+         socket.emit('newinfos', messagehistory);
+       }
+       eventEmitter.on('newinfos', function (message) {
+           socket.emit('newinfos', message);
+           messagehistory = message;
        });
     });
   }

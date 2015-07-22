@@ -1,7 +1,5 @@
-<<<<<<< HEAD
-
 My homepage
 
 bluerider-haochenyao.rhcloud.com
 
-Base on nodejs and mongodb. 
+Base on nodejs and mongodb.
