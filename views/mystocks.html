@@ -17,6 +17,7 @@
       var socket = io.connect('https://bluerider-haochenyao.rhcloud.com:8443');
       socket.on('newinfos', function(message) {
         var index = 0;
+        console.log(message);
         $('#stock_table tr').each(function() {
         var stock_id = $(this).find(".stockid").html();
         if (stock_id != undefined && message[index] != undefined) {
