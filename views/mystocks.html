@@ -12,7 +12,7 @@
 
   <script>
       var price = 'none';
-      var socket = io.connect('http://bluerider-haochenyao.rhcloud.com:8000');
+      var socket = io.connect('https://bluerider-haochenyao.rhcloud.com:8443');
       //var socket = io.connect('http://localhost:8082');
       socket.on('newinfos', function(message) {
         var index = 0;
@@ -23,7 +23,6 @@
         $(this).find(".priceyesclose").html(message[index][2]);
         $(this).find(".pricetodopen").html(message[index][1]);
         $(this).find(".pricenow").html(message[index][3]);
-        index++;
 
         if (message[index][3] < message[index][2])
           $(this).find(".pricenow").css("color", "green");
@@ -31,6 +30,7 @@
           $(this).find(".pricenow").css("color", "red");
         else
           $(this).find(".pricenow").css("color", "black");
+        index++;
       }
     });
       });
