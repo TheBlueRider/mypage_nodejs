@@ -33,7 +33,7 @@ body {
 /* PAGE WELCOME
 -------------------------------------------------- */
 .homepagebody {
-  background-image: url('../images/snow.jpg');
+  background-image: url('../images/Snow.jpg');
   -webkit-background-size: cover; /* pour anciens Chrome et Safari */
   background-size: cover; /* version standardisée */
 }
