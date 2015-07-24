@@ -7,6 +7,7 @@ body {
 }
 
 /* stylenavbar */
+
 .navbar-colorful {
   background-color: rgba(33, 47, 63, 0.8);
 }
@@ -15,19 +16,6 @@ body {
   border: 0px;
 }
 
-.navbar-nav>li>a, .navbar-brand{
-  color: white !important;
-  border-radius: 0.3em;
-}
-
-.navbar-nav>li>a:hover, .navbar-brand:hover{
-  color: rgba(175, 182, 187, 1) !important;
-}
-
-.navbar-nav > .active > a {
-    background-color: white !important;
-    color: rgba(33, 47, 63, 1) !important;
-}
 
 
 /* PAGE WELCOME
@@ -38,13 +26,14 @@ body {
   background-size: cover; /* version standardisée */
 }
 
+
 .hero-unit {
   text-align: center;
 }
 
 .blueridertext {
   text-align: center;
-  margin-top: 10%;
+  margin-top:1em;
   font-size: 5em;
   font-family: "freight-sans-pro",sans-serif;
   color: white;
@@ -52,10 +41,10 @@ body {
   animation: textblur 3s linear;
 }
 
-.welcometext {
+.myinfos {
   text-align: center;
-  margin-top: 5%;
-  font-size: 3em;
+  margin-top:1em;
+  font-size: 1em;
   color: white;
   -webkit-animation: mymove 3s linear; /* Chrome, Safari, Opera */
   animation: textblur 3s linear;

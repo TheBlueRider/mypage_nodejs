@@ -7,11 +7,71 @@
 	<title>Home of haochen</title>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
+  <style>
+
+  .navbar-nav>li>a, .navbar-brand{
+    color: white !important;
+  }
+
+  .navbar-nav>li>a:hover, .navbar-brand:hover, .navbar-nav>li>a:focus, .navbar-brand:focus, .nav .open>a, .nav .open>a:focus, .nav .open>a:hover{
+    background-color: transparent !important;
+  }
+
+  .navbar-nav > .active > a {
+    background-color: transparent !important;
+  }
+
+  .icon-bar {
+    background-color: white;
+  }
+
+  .myfooter {
+    margin-top:5em;
+    text-align:right;
+    color:white;
+    width:100%;
+    border-top: 1px solid white;
+  }
+  </style>
   </head>
   <body class="homepagebody">
-    <div class="blueridertext"> Welcome to my page</div>
-    <div class="blueridertext"> 欢迎来到姚昊辰的主页 <br/>
-    <a class="btn btn-bluerider" href="/index">进入</a></div>
+    <nav class="navbar navbar-transparent">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"  data-target="#navbarlist">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" style="font-size:2em;" href="/">TheBlueRider</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="navbarlist">
+        <ul class="nav navbar-nav navbar-right">
+
+          <li><a href="/mystocks">股票</a></li>
+          <li><a href="#">HTML5动画</a></li>
+          <li><a href="#">My Gallery</a></li>
+          <li><a href="#">My familly</a></li>
+          <li><a href="#" target="_blank">Contact</a></li>
+        </ul>
+      </div><!-- END .navbar-collapse -->
+    </nav>
+
+      <div align=center style="margin-top:5em;"><img class="img-circle"  border="10" src="img/myportail.png" alt="Myphoto" width="180" height="180"><div>
+      <div>
+        <div class="blueridertext"> Welcome to my page</div>
+      </div>
+      <div>
+        <div class="myinfos">姚昊辰, 上海人, 现居法国Draguignan</div>
+        <div class="myinfos">工作于ARCELORMITTAL, 程序员</div>
+        <div class="myinfos">爱好: 围棋, 魔术, 旅行, 设计</div>
+      </div>
+        <footer class="myfooter">
+        <p>created by Haochen YAO</p>
+      </footer>
+
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
   </body>

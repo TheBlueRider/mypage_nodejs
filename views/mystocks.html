@@ -5,6 +5,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
+  <style>
+  .navbar-nav>li>a, .navbar-brand{
+    color: white !important;
+    border-radius: 0.3em;
+  }
+
+  .navbar-nav>li>a:hover, .navbar-brand:hover{
+    color: rgba(175, 182, 187, 1) !important;
+  }
+
+  .navbar-nav > .active > a {
+      background-color: white !important;
+      color: rgba(33, 47, 63, 1) !important;
+  }
+  </style>
   <title>Blue Rider</title>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
   <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
@@ -12,8 +27,8 @@
 
   <script>
       var price = 'none';
-      //var socket = io.connect('https://bluerider-haochenyao.rhcloud.com:8443');
-      var socket = io.connect('http://localhost:8082');
+      var socket = io.connect('https://bluerider-haochenyao.rhcloud.com:8443');
+      //var socket = io.connect('http://localhost:8082');
       socket.on('newinfos', function(message) {
         var index = 0;
         $('#stock_table tr').each(function() {
@@ -22,11 +37,12 @@
         $(this).find(".stockname").html(message[index][0]);
         $(this).find(".priceyesclose").html(message[index][2]);
         $(this).find(".pricetodopen").html(message[index][1]);
-        $(this).find(".pricenow").html(message[index][3]);
-
-        if (message[index][3] < message[index][2])
+        $(this).find(".pricenow").html(message[index][3] + "(" +
+              ((parseFloat(message[index][3])-parseFloat(message[index][2]))/parseFloat(message[index][2])*100).toFixed(2)
+            + "%)");
+        if (parseFloat(message[index][3]) < parseFloat(message[index][2]))
           $(this).find(".pricenow").css("color", "green");
-        else if (message[index][3] > message[index][2])
+        else if (parseFloat(message[index][3]) > parseFloat(message[index][2]))
           $(this).find(".pricenow").css("color", "red");
         else
           $(this).find(".pricenow").css("color", "black");
