@@ -67,6 +67,10 @@ function ContentHandler (db, eventEmitter) {
       return res.render("newstock", {});
     }
 
+    this.displayFamillyPage = function(req, res, next) {
+      "use strict";
+      return res.render("myfamilly", {});
+    }
 
     this.handleNewStock = function(req, res, next) {
         "use strict";
