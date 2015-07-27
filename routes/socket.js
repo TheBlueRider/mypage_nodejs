@@ -14,7 +14,7 @@ function SocketHandle(server, eventEmitter) {
        }
        if (pointhistory != null) {
          console.log('send point history');
-         socket.emit('newinfos', pointhistory);
+         socket.emit('positionclose', pointhistory);
        }
        eventEmitter.on('newinfos', function (message) {
            socket.emit('newinfos', message);
