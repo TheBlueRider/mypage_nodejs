@@ -4,6 +4,7 @@ function ProccessHandle(db, eventEmitter) {
   var stocks = new StockDAO(db);
   var childprocess = require('child_process');
   var gdprocess;
+  var pointlist = [];
 
   this.createprocess = function(){
     stocks.getAllStocks(function(err, results) {
@@ -15,6 +16,7 @@ function ProccessHandle(db, eventEmitter) {
         for (var index= 0; index < results.length; index++)
         {
           stockstring += 'sh'+results[index]['stock_id']+',';
+          pointlist.push(results[index]['point']);
         }
 
         gdprocess = childprocess.fork(__dirname + '/getdata.js', [stockstring]);

@@ -41,6 +41,12 @@ body {
   animation: textblur 3s linear;
 }
 
+@media (max-width: 468px) {
+  .blueridertext {
+  font-size: 3em;
+  }
+}
+
 .myinfos {
   text-align: center;
   margin-top:1em;
@@ -192,4 +198,47 @@ body {
 /* -----------Error Block------------*/
 .err {
   margin-top: 2em;
+}
+
+/* -----------table responsive------------*/
+
+@media (max-width: 668px) {
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr {
+		display: block;
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr {
+	   display: none;
+	}
+
+	tr { border: 1px solid #ccc; }
+
+	td {
+	/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50% !important;
+		white-space: normal;
+		text-align:left;
+		width:100% !important;
+		height:3.5em;
+	}
+
+	td:before {
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%;
+		padding-right: 10px;
+		white-space: nowrap;
+		text-align:left;
+		font-weight: bold;
+	}
+
+	td:before { content: attr(data-title); }
 }

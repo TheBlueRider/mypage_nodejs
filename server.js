@@ -8,6 +8,7 @@ var express = require('express')
   , routes = require('./routes') // Routes for our application // Routes for our application
   , ProcessHandle = require('./routes/process.js')
   , SocketHandle = require('./routes/socket.js')
+  , UpdateHandle = require('./routes/update.js')
   , events = require('events')
   , eventEmitter = new events.EventEmitter();
 /**
@@ -37,9 +38,10 @@ var express = require('express')
 
      //Handle async process
      var processhandle = new ProcessHandle(db, eventEmitter);
-
+     var updatehandle = new UpdateHandle(db, eventEmitter);
      //create async process
      processhandle.createprocess();
+     updatehandle.createlistener();
 
      eventEmitter.on('newstock', function (message) {
        processhandle.restartprocess();

@@ -32,23 +32,34 @@
       socket.on('newinfos', function(message) {
         var index = 0;
         $('#stock_table tr').each(function() {
-        var stock_id = $(this).find(".stockid").html();
-        if (stock_id != undefined && message[index] != undefined) {
-        $(this).find(".stockname").html(message[index][0]);
-        $(this).find(".priceyesclose").html(message[index][2]);
-        $(this).find(".pricetodopen").html(message[index][1]);
-        $(this).find(".pricenow").html(message[index][3] + "(" +
-              ((parseFloat(message[index][3])-parseFloat(message[index][2]))/parseFloat(message[index][2])*100).toFixed(2)
-            + "%)");
-        if (parseFloat(message[index][3]) < parseFloat(message[index][2]))
-          $(this).find(".pricenow").css("color", "green");
-        else if (parseFloat(message[index][3]) > parseFloat(message[index][2]))
-          $(this).find(".pricenow").css("color", "red");
-        else
-          $(this).find(".pricenow").css("color", "black");
-        index++;
-      }
-    });
+          var stock_id = $(this).find(".stockid").html();
+          if (stock_id != undefined && message[index] != undefined) {
+            $(this).find(".stockname").html(message[index][0]);
+            $(this).find(".priceyesclose").html(message[index][2]);
+            $(this).find(".pricetodopen").html(message[index][1]);
+            $(this).find(".pricenow").html(message[index][3] + "(" +
+                  ((parseFloat(message[index][3])-parseFloat(message[index][2]))/parseFloat(message[index][2])*100).toFixed(2)
+                + "%)");
+            if (parseFloat(message[index][3]) < parseFloat(message[index][2]))
+              $(this).find(".pricenow").css("color", "green");
+            else if (parseFloat(message[index][3]) > parseFloat(message[index][2]))
+              $(this).find(".pricenow").css("color", "red");
+            else
+              $(this).find(".pricenow").css("color", "black");
+            index++;
+          }
+        });
+      });
+
+      socket.on('positionclose', function(message) {
+        var index = 0;
+        $('#stock_table tr').each(function() {
+          var stock_id = $(this).find(".stockid").html();
+          if (stock_id != undefined && message[index] != undefined) {
+            $(this).find(".positionclose").html(message[index]);
+            index++;
+          }
+        });
       });
 
   </script>
@@ -82,8 +93,10 @@
   </nav>
 
 <div>
-  <div class="container">
+  <div class="container tab-responsive>">
     <table class="table" id="stock_table">
+      <caption></caption>
+      <thead>
       <tr>
         <th>代码</th>
         <th>股票名</th>
@@ -93,17 +106,20 @@
         <th>止损点</th>
         <th>k线图</th>
       </tr>
+      </thead>
+      <tbody>
       {% for stock in mystocks %}
       <tr>
-        <td class="stockid">{{ stock['stock_id'] }}</td>
-        <td class="stockname"></td>
-        <td class="priceyesclose"></td>
-        <td class="pricetodopen"></td>
-        <td class="pricenow"></td>
-        <td class="positionclose"></td>
-        <td><a class="btn btn-default" href="../candlestick/{{ stock['stock_id'] }}">查看</a></td>
+        <td class="stockid" data-title="代码">{{ stock['stock_id'] }}</td>
+        <td class="stockname" data-title="股票名"></td>
+        <td class="priceyesclose" data-title="昨收"></td>
+        <td class="pricetodopen" data-title="今开"></td>
+        <td class="pricenow" data-title="现价"></td>
+        <td class="positionclose" data-title="止损点"></td>
+        <td data-title="k线图"><a class="btn btn-default" href="../candlestick/{{ stock['stock_id'] }}">查看</a></td>
       </tr>
       {% endfor %}
+    </tbody>
     </table>
   </div>
 </div>

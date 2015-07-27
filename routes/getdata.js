@@ -3,7 +3,7 @@ var iconv = require('iconv-lite');
 
 
 getdata();
-setInterval(getdata, 12000);
+setInterval(getdata, 60000);
 
 function getdata() {
   "use strict"
