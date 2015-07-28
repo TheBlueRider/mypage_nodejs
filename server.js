@@ -21,7 +21,7 @@ var express = require('express')
  //MongoClient.connect('mongodb://localhost:27017/stockdb', function(err, db) {
      "use strict";
      if(err) throw err;
-     
+
      // Register our templating engine
      app.engine('html', cons.swig);
      app.set('view engine', 'html');
