@@ -38,8 +38,8 @@ function UpdateHandle(db, eventEmitter) {
            });
          }
          else {
-          eventEmitter.emit('positionclose', pointlist);
-          }
+           eventEmitter.emit('positionclose', pointlist);
+         }
       });
     });
   }

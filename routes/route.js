@@ -1,7 +1,7 @@
 var ContentHandler = require('./content')
   , ErrorHandler = require('./error').errorHandler;
 
-module.exports = exports = function(app, db, eventEmitter) {
+function RoutesHandle(app, db, eventEmitter) {
     var contentHandler = new ContentHandler(db, eventEmitter);
 
     app.get('/', contentHandler.displayMainPage);
@@ -15,3 +15,5 @@ module.exports = exports = function(app, db, eventEmitter) {
     // Error handling middleware
     app.use(ErrorHandler);
 }
+
+module.exports = RoutesHandle;

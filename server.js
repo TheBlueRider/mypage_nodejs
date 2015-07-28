@@ -5,7 +5,7 @@ var express = require('express')
   , app = express() // Web framework to handle routing requests
   , cons = require('consolidate') // Templating library adapter for Express
   , MongoClient = require('mongodb').MongoClient // Driver for connecting to MongoDB
-  , routes = require('./routes') // Routes for our application // Routes for our application
+  , RoutesHandle = require('./routes/route.js') // Routes for our application // Routes for our application
   , ProcessHandle = require('./routes/process.js')
   , SocketHandle = require('./routes/socket.js')
   , UpdateHandle = require('./routes/update.js')
@@ -37,13 +37,14 @@ var express = require('express')
      app.use(express.bodyParser());
 
      // Application routes
-     routes(app, db, eventEmitter);
+     RoutesHandle(app, db, eventEmitter);
 
      //Handle async process
      var processhandle = new ProcessHandle(db, eventEmitter);
      var updatehandle = new UpdateHandle(db, eventEmitter);
      //create async process
      processhandle.createprocess();
+     //create updatelistener
      updatehandle.createlistener();
 
      eventEmitter.on('newstock', function (message) {

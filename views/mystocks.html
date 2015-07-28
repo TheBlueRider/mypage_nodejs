@@ -36,7 +36,7 @@
             $(this).find(".priceyesclose").html(message[index][2]);
             $(this).find(".pricetodopen").html(message[index][1]);
             $(this).find(".pricenow").html(message[index][3] + "(" +
-                  ((parseFloat(message[index][3])-parseFloat(message[index][2]))/parseFloat(message[index][2])*100).toFixed(2)
+                ((parseFloat(message[index][3])-parseFloat(message[index][2]))/parseFloat(message[index][2])*100).toFixed(2)
                 + "%)");
             if (parseFloat(message[index][3]) < parseFloat(message[index][2]))
               $(this).find(".pricenow").css("color", "green");
