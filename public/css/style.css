@@ -241,4 +241,8 @@ body {
 	}
 
 	td:before { content: attr(data-title); }
+
+  .item-not-mobile {
+    display:none;
+  }
 }
