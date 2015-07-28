@@ -1,32 +1,27 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-  <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends 'layout.html' %}
+{% block title %}
 	<title>添加股票</title>
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
-  <link rel="shortcut icon" href="/img/logo/logo.png" type="image/x-icon"/>
-  <link rel="icon" href="/img/logo/logo.png" type="image/x-icon"/>
-  <style>
-  .navbar-nav>li>a, .navbar-brand{
-    color: white !important;
-    border-radius: 0.3em;
-  }
+{% endblock %}
+{% block style %}
+{% block style %}
+<style>
+.navbar-nav>li>a, .navbar-brand{
+  color: white !important;
+  border-radius: 0.3em;
+}
 
-  .navbar-nav>li>a:hover, .navbar-brand:hover{
-    color: rgba(175, 182, 187, 1) !important;
-  }
+.navbar-nav>li>a:hover, .navbar-brand:hover{
+  color: rgba(175, 182, 187, 1) !important;
+}
 
-  .navbar-nav > .active > a {
-      background-color: white !important;
-      color: rgba(33, 47, 63, 1) !important;
-  }
-  </style>
-  </head>
-  <body>
-    <div class="wrapper">
+.navbar-nav > .active > a {
+    background-color: white !important;
+    color: rgba(33, 47, 63, 1) !important;
+}
+</style>
+{% endblock %}
+{% block content %}
+<div class="wrapper">
 
   <nav class="navbar navbar-inverse">
     <div class="container">
@@ -80,7 +75,4 @@
 
 
   </div>
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-  </body>
-</html>
+{% endblock %}

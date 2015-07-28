@@ -10,7 +10,8 @@ var express = require('express')
   , SocketHandle = require('./routes/socket.js')
   , UpdateHandle = require('./routes/update.js')
   , events = require('events')
-  , eventEmitter = new events.EventEmitter();
+  , eventEmitter = new events.EventEmitter()
+  , swig = require('swig');
 /**
  *  Define the sample application.
  */
@@ -27,6 +28,8 @@ var express = require('express')
      app.set('view engine', 'html');
      app.set('views', __dirname + '/views');
      app.use(express.static(__dirname + '/public'));
+     swig.init({ root: __dirname + '/views' });
+
      // Express middleware to populate 'req.cookies' so we can access cookies
      app.use(express.cookieParser());
 

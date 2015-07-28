@@ -1,18 +1,14 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-  <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends "layout.html" %}
+{% block title %}
 	<title>我的家庭</title>
-  <link rel="shortcut icon" href="/img/logo/logo.png" type="image/x-icon"/>
-  <link rel="icon" href="/img/logo/logo.png" type="image/x-icon"/>
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+{% endblock %}
+
+{% block style %}
   <link rel="stylesheet" type="text/css" href="js/reveal.js-master/css/reveal.css">
   <link rel="stylesheet" type="text/css" href="js/reveal.js-master/css/theme/white.css">
+{% endblock %}
 
-  </head>
-  <body>
+{% block content %}
     <div class="reveal">
       <div class="slides">
           <section  data-background="img/homepage-backgroud.jpg"></section>
@@ -21,8 +17,8 @@
           </section>
       </div>
     </div>
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+  {% endblock %}
+  {% block javascript %}
     <script src="js/reveal.js-master/js/reveal.js"></script>
 		<script src="js/reveal.js-master/lib/js/head.min.js"></script>
     <script>
@@ -47,7 +43,5 @@
           { src: 'js/reveal.js-master/plugin/notes/notes.js', async: true }
         ]
       });
-
-    </script>
-  </body>
-</html>
+      </script>
+  {% endblock %}

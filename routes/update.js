@@ -31,7 +31,7 @@ function UpdateHandle(db, eventEmitter) {
             // instead of creating a new update object and using $set
             // you could also just modify the 'doc' variable and pass it again
             // in the update function below instead of myupdate
-          
+
           index++;
           db.collection('stocks').update(updatequery, update, function (err, updatedDoc) {
              if (err) throw err;
@@ -39,7 +39,6 @@ function UpdateHandle(db, eventEmitter) {
          }
          else {
           eventEmitter.emit('positionclose', pointlist);
-          console.log(pointlist);
           }
       });
     });

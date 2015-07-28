@@ -1,13 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
-  <link rel="shortcut icon" href="/img/logo/logo.png" type="image/x-icon"/>
-  <link rel="icon" href="/img/logo/logo.png" type="image/x-icon"/>
+{% extends 'layout.html' %}
+{% block title %}
+	<title>股票</title>
+{% endblock %}
+{% block style %}
   <style>
   .navbar-nav>li>a, .navbar-brand {
     color: white !important;
@@ -23,10 +18,10 @@
       color: rgba(33, 47, 63, 1) !important;
   }
   </style>
-  <title>股票</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+{% endblock %}
+
+{% block javascript %}
   <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
-  <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
 
   <script>
       var price = 'none';
@@ -66,8 +61,9 @@
       });
 
   </script>
-</head>
-<body>
+{% endblock %}
+
+{% block content %}
   <nav class="navbar navbar-inverse">
     <div class="container">
       <div class="navbar-header">
@@ -126,6 +122,4 @@
     </table>
   </div>
 </div>
-  <script src="js/bootstrap.min.js"></script>
-  </body>
-</html>
+{% endblock %}}
