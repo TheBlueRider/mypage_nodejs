@@ -1,0 +1,97 @@
+{% extends 'layout.html' %}
+{% block title %}
+	<title>售出/购买股票</title>
+{% endblock %}
+{% block style %}
+<style>
+.navbar-nav>li>a, .navbar-brand{
+  color: white !important;
+  border-radius: 0.3em;
+}
+
+.navbar-nav>li>a:hover, .navbar-brand:hover{
+  color: rgba(175, 182, 187, 1) !important;
+}
+
+.navbar-nav > .active > a {
+    background-color: white !important;
+    color: rgba(33, 47, 63, 1) !important;
+}
+</style>
+{% endblock %}
+{% block content %}
+<div class="wrapper">
+
+  <nav class="navbar navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mongodb-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">TheBlueRider</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="mongodb-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">股票<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="stock">
+              <li><a href="/newstock">添加</a></li>
+                <li><a href="/mystocks">查看</a></li>
+            </ul>
+          </li>
+          <li><a href="#" target="_blank">Contact</a></li>
+        </ul>
+      </div><!-- END .navbar-collapse -->
+    </div><!-- END .container-fluid -->
+  </nav>
+
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <td>代码</td>
+          <td>购买价</td>
+          <td>购买数</td>
+          <td>止损点</td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <td>{{ stock['stock_id'] }}</td>
+        <td>{{ stock['price_buy'] }}</td>
+        <td>{{ stock['number_buy'] }}</td>
+        <td>{{ stock['point'] }}</td>
+      </tbody>
+    </table>
+  </div>
+  <div class="stock-form">
+    <form method="post">
+      <div class="form-group">
+        <label for="price_trade">买入/卖出价格:</label>
+        <input type="text" class="form-control" name="price_trade">
+      </div>
+      <div class="form-group">
+        <label for="trade_type">买入/卖出:</label>
+        <select class="form-control" name="trade_type">
+          <option>买入</option>
+          <option>卖出</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="number_trade">数量:</label>
+        <input type="text" class="form-control" name="number_trade">
+      </div>
+      <input type="submit" class="submit-button btn">
+    </form>
+    {% if err %}
+      <div class="err alert alert-danger" role="alert">  {{err}}</div>
+    {% endif %}
+  </div>
+
+
+  </div>
+{% endblock %}

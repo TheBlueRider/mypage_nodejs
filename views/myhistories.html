@@ -1,0 +1,107 @@
+{% extends 'layout.html' %}
+{% block title %}
+	<title>股票</title>
+{% endblock %}
+{% block style %}
+  <style>
+  .navbar-nav>li>a, .navbar-brand {
+    color: white !important;
+    border-radius: 0.3em;
+  }
+
+  .navbar-nav>li>a:hover, .navbar-brand:hover {
+    color: rgba(175, 182, 187, 1) !important;
+  }
+
+  .navbar-nav > .active > a {
+      background-color: white !important;
+      color: rgba(33, 47, 63, 1) !important;
+  }
+  </style>
+{% endblock %}
+
+{% block javascript %}
+  <script>
+    $('#histroy_table tbody tr').each(function() {
+        var number_trade = $(this).find(".number_trade").html();
+        var price_trade = $(this).find(".price_trade").html();
+        var price_buy = $(this).find(".price_buy").html();
+        var type = $(this).find(".type").html();
+        var difference = 0;
+        if (type === "卖出")
+        {
+          difference = (parseFloat(price_trade) - parseFloat(price_buy)) * parseFloat(number_trade);
+        }
+        $(this).find(".difference").html(difference.toFixed(0));
+        if (difference < 0) {
+            $(this).find(".difference").css("color", "green");
+        }
+        else if (difference > 0) {
+            $(this).find(".difference").css("color", "red");
+        }
+    });
+  </script>
+{% endblock %}
+
+{% block content %}
+  <nav class="navbar navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mongodb-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">TheBlueRider</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="mongodb-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">股票<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="stock">
+              <li><a href="/newstock">添加</a></li>
+                <li><a href="/mystocks">查看</a></li>
+            </ul>
+          </li>
+          <li><a href="#" target="_blank">Contact</a></li>
+        </ul>
+      </div><!-- END .navbar-collapse -->
+    </div><!-- END .container-fluid -->
+  </nav>
+
+<div>
+  <div class="container tab-responsive>">
+    <table class="table" id="histroy_table">
+      <caption>交易历史</caption>
+      <thead>
+      <tr>
+        <th>时间</th>
+        <th>代码</th>
+        <th>交易价格(元)</th>
+        <th>交易时成本价格(元)</th>
+        <th>数量(股)</th>
+        <th>买入/卖出</th>
+        <th>差价</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for history in myhistories %}
+      <tr>
+        <td data-title="时间">{{ history['create_date']|date('j/m/Y')  }}</td>
+        <td data-title="代码">{{ history['stock_id'] }}</td>
+        <td class="price_trade" data-title="交易价格(元)">{{ history['price_trade'] }}</td>
+        <td class="price_buy" data-title="交易时成本价格(元)">{{ history['price_buy'] }}</td>
+        <td class="number_trade" data-title="数量(股)">{{ history['number_trade'] }}</td>
+        <td class="type" data-title="买入/卖出">{% if history['type'] == 1 %}买入{% else %}卖出{% endif %}</td>
+        <td class="difference" data-title="差价"></td>
+        <td data-title="操作"><a class="btn btn-default" href="../tradecallback/{{ history['_id'] }}">撤销</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}}

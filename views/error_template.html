@@ -1,11 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-<head>
-<title>Internal Error</title>
-</head>
-<body>
-
-Oops..<br>
-{{error}}
-</body>
-</html>
+{% extends "layout.html" %}
+{% block title %}
+	<title>错误</title>
+{% endblock %}
+{% block content %}
+  Oops! {{err}}
+{% endblock %}

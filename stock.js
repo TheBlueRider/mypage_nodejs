@@ -42,12 +42,10 @@ function StockDAO(db) {
         });
     }
 
-    this.getStockDetail = function(stock_id, callback) {
+    this.getStock = function(stock_id, callback) {
         "use strict";
         stocks.findOne({"stock_id": stock_id}, function(err, result) {
             if (err) return callback(err, null);
-
-
             if (result) {
               console.log("Stock found");
               callback(err, result);
@@ -64,17 +62,44 @@ function StockDAO(db) {
             "use strict";
             if (err) return callback(err, null);
 
-
             callback(err, items);
         });
+    }
+
+    this.upadatestock = function(stock_id, type, price_trade, number_trade, callback) {
+      if (type != 0) {
+        var findquery = {"stock_id": stock_id};
+        var stockCursor = db.collection("stocks").find(findquery);
+        stockCursor.each(function(err, stock) {
+          var updatequery = {};
+          if (stock != null) {
+            updatequery['_id'] = stock['_id'];
+            var number_now = parseFloat(stock.number_buy) + parseFloat(type) * parseFloat(number_trade);
+            if (number_now < 0) number_now = 0;
+            var price_cost = 0
+            if (number_now > 0)
+              price_cost = ((parseFloat(stock.number_buy) * parseFloat(stock.price_buy) + parseFloat(price_trade) * parseFloat(number_trade) * parseFloat(type)) / number_now).toFixed(2);
+            if (type < 0)
+              price_cost = parseFloat(stock.price_buy);
+            var update = { $set: { number_buy : number_now,
+                                  price_buy : price_cost} };
+            console.log(update);
+            stocks.update(updatequery, update, function (err, updatedDoc){
+              if (err) return callback(err, null);
+              callback(err, updatedDoc);
+            });
+          }
+        });
+        
+      }
     }
 
     this.removeStock = function(stock_id, callback) {
         "use strict";
         stocks.remove({"stock_id": stock_id}, function(err, numberOfRemovedDocs) {
-        assert.equal(null, err);
-        assert.equal(1, numberOfRemovedDocs);
-      });
+          if (err) return callback(err, null);
+            callback(err, numberOfRemovedDocs);
+        });
     }
 }
 

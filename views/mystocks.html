@@ -22,11 +22,12 @@
 
 {% block javascript %}
   <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
-
   <script>
       var price = 'none';
       var socket = io.connect('https://bluerider-haochenyao.rhcloud.com:8443');
       //var socket = io.connect('http://localhost:8082');
+			var value_total = 0;
+			var different_total = 0;
       socket.on('newinfos', function(message) {
         var index = 0;
         $('#stock_table tr').each(function() {
@@ -44,9 +45,26 @@
               $(this).find(".pricenow").css("color", "red");
             else
               $(this).find(".pricenow").css("color", "black");
-            index++;
+						var value = parseFloat(message[index][3]) * parseFloat($(this).find(".numberbuy").html()) / 10000;
+						var difference = (parseFloat(message[index][3])
+															- parseFloat($(this).find(".pricebuy").html()))
+															* parseFloat($(this).find(".numberbuy").html())/10000;
+						value_total += value;
+						different_total += difference;
+						$(this).find(".value").html(value.toFixed(1)+'('+difference.toFixed(1)+')');
+            if (difference < 0)
+              $(this).find(".value").css("color", "green");
+						else if (difference > 0)
+							$(this).find(".value").css("color", "red");
+						index++;
           }
         });
+
+				$("#value_total").html(value_total.toFixed(1)+'('+different_total.toFixed(1)+')');
+				if (different_total < 0)
+					$("#value_total").css("color", "green");
+				else if (different_total > 0)
+					$("#value_total").css("color", "red");
       });
 
       socket.on('positionclose', function(message) {
@@ -94,15 +112,19 @@
 <div>
   <div class="container tab-responsive>">
     <table class="table" id="stock_table">
-      <caption></caption>
+      <caption>股票</caption>
       <thead>
       <tr>
         <th>代码</th>
         <th>股票名</th>
-        <th>昨收</th>
-        <th>今开</th>
-        <th>现价</th>
-        <th>止损点</th>
+        <th>昨收(元)</th>
+        <th>今开(元)</th>
+        <th>现价(元)</th>
+        <th>购买价(元)</th>
+        <th>购买数(股)</th>
+        <th>价值(万)</th>
+        <th>止损点(元)</th>
+        <th>操作</th>
         <th>k线图</th>
       </tr>
       </thead>
@@ -114,10 +136,31 @@
         <td class="priceyesclose" data-title="昨收"></td>
         <td class="pricetodopen" data-title="今开"></td>
         <td class="pricenow" data-title="现价"></td>
+        <td class="pricebuy" data-title="购买价">{% if stock['price_buy'] %}{{ stock['price_buy'] }}{% else %}0{% endif %}</td>
+        <td class="numberbuy" data-title="购买数">{% if stock['number_buy'] %}{{ stock['number_buy'] }}{% else %}0{% endif %}</td>
+        <td class="value" data-title="价值"></td>
         <td class="positionclose" data-title="止损点"></td>
+				<td class="do" data-title="操作">
+					<a class="btn btn-default" href="../trade/{{ stock['stock_id'] }}">购买/售出</a>
+					<a class="btn btn-default" href="../remove/{{ stock['stock_id'] }}">删除</a>
+				</td>
         <td data-title="k线图"><a class="btn btn-default" href="../candlestick/{{ stock['stock_id'] }}">查看</a></td>
       </tr>
       {% endfor %}
+			<tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td id="value_total"></td>
+        <td></td>
+        <td></td>
+				<td></td>
+        <td></td>
+      </tr>
     </tbody>
     </table>
   </div>
