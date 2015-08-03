@@ -1,4 +1,6 @@
-/* The PostsDAO must be constructed with a connected database object */
+
+var mongodb = require('mongodb');
+
 function HistoryDAO(db) {
     "use strict";
 
@@ -28,7 +30,7 @@ function HistoryDAO(db) {
     this.getAllHistories = function(callback) {
         "use strict";
 
-        histories.find({}).toArray(function(err, items) {
+        histories.find({}).sort({date:-1}).toArray(function(err, items) {
             "use strict";
             if (err) return callback(err, null);
 
@@ -36,9 +38,38 @@ function HistoryDAO(db) {
         });
     }
 
+    this.isTheLast = function(history_id, callback) {
+        "use strict";
+        var historyCursor = histories.find({}).sort({date:-1}).limit(1);
+        historyCursor.each(function(err, history) {
+          if (err) return callback(err, null);
+          if (history != null) {
+            if (history._id != history_id) {
+              return callback(err, 'n')
+            }
+            else {
+              return callback(err, 'y');
+            }
+          }
+        });
+    }
+
+    this.getHistory = function(history_id, callback) {
+        "use strict";
+        histories.findOne({'_id': new mongodb.ObjectID(history_id)}, function(err, result) {
+            if (err) return callback(err, null);
+            if (result) {
+              callback(err, result);
+            } else {
+              callback(err, null);
+            }
+        });
+    }
+
+
     this.removeHistory = function(history_id, callback) {
         "use strict";
-        histories.remove({"_id": history_id}, function(err, numberOfRemovedDocs) {
+        histories.remove({'_id': new mongodb.ObjectID(history_id)}, function(err, numberOfRemovedDocs) {
           if (err) return callback(err, null);
             callback(err, numberOfRemovedDocs);
         });

@@ -17,6 +17,7 @@ function RoutesHandle(app, db, eventEmitter) {
     app.post('/trade/:stock_id', contentHandler.handleTradeStock);
 
     app.get('/histories', contentHandler.displayHistoriesPage);
+    app.get('/tradecallback/:history_id', contentHandler.tradeCallBack);
 
     app.get('/animation/first', contentHandler.displayFirstAnimationPage);
     app.get('/baobao', contentHandler.cadeaubaobao);

@@ -61,8 +61,9 @@
           <li class="active">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">股票<span class="caret"></span></a>
             <ul class="dropdown-menu" role="stock">
-              <li><a href="/newstock">添加</a></li>
+              	<li><a href="/newstock">添加</a></li>
                 <li><a href="/mystocks">查看</a></li>
+	              <li><a href="/histories">交易历史</a></li>
             </ul>
           </li>
           <li><a href="#" target="_blank">Contact</a></li>
@@ -92,16 +93,19 @@
       <tr>
         <td data-title="时间">{{ history['create_date']|date('j/m/Y')  }}</td>
         <td data-title="代码">{{ history['stock_id'] }}</td>
-        <td class="price_trade" data-title="交易价格(元)">{{ history['price_trade'] }}</td>
-        <td class="price_buy" data-title="交易时成本价格(元)">{{ history['price_buy'] }}</td>
+        <td class="price_trade" data-title="交易价格(元)">{{ history['price_trade']|round(2) }}</td>
+        <td class="price_buy" data-title="交易时成本价格(元)">{{ history['price_buy']|round(2) }}</td>
         <td class="number_trade" data-title="数量(股)">{{ history['number_trade'] }}</td>
         <td class="type" data-title="买入/卖出">{% if history['type'] == 1 %}买入{% else %}卖出{% endif %}</td>
         <td class="difference" data-title="差价"></td>
-        <td data-title="操作"><a class="btn btn-default" href="../tradecallback/{{ history['_id'] }}">撤销</a></td>
+        <td data-title="操作">{% if loop.index == 1 %}<a class="btn btn-default" href="../tradecallback/{{ history['_id'] }}">撤销{% endif %}</a></td>
       </tr>
       {% endfor %}
     </tbody>
     </table>
+		{% if err %}
+			<div class="err alert alert-danger" role="alert">{{err}}</div>
+		{% endif %}
   </div>
 </div>
 {% endblock %}}

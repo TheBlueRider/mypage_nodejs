@@ -17,8 +17,14 @@
     {% block content %}
     {% endblock %}
   </body>
-  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
   {% block javascript %}
+  <script>
+
+  swig.setFilter('round', function (input, number) {
+    return input.toFixed(number);
+  });
+  </script>
   {% endblock %}
 </html>

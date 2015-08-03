@@ -1,6 +1,7 @@
 var StockDAO = require('../stock').StockDAO
   , HistoryDAO = require('../history').HistoryDAO
-  , sanitize = require('validator').sanitize; // Helper to sanitize form input
+  , sanitize = require('validator').sanitize
+  , mongodb = require('mongodb'); // Helper to sanitize form input
 
 /* The ContentHandler must be constructed with a connected db */
 function ContentHandler (db, eventEmitter) {
@@ -96,8 +97,14 @@ function ContentHandler (db, eventEmitter) {
           });
       });
 
-      stocks.upadatestock(stock_id, type, price_trade, number_trade, function(err, doc) {
+      stocks.upadatestock(stock_id, type, price_trade, number_trade, function(err, info, valuereturn) {
         if (err) return res.render('error_template', {err:err});
+        if (info == 'NaN') {
+          return res.render('tradestock', {
+              stock: valuereturn,
+              err: '卖出数量大于已有数量'
+          });
+        }
         return res.redirect('/mystocks');
       });
     }
@@ -109,7 +116,6 @@ function ContentHandler (db, eventEmitter) {
           "use strict";
 
           if (err) return res.render('error_template', {err:err});
-
           return res.render('tradestock', {
               stock: result
           });
@@ -190,17 +196,29 @@ function ContentHandler (db, eventEmitter) {
     this.tradeCallBack = function(req, res, next) {
         "use strict";
         var history_id = req.params.history_id;
-        histories.removeHistory(history_id, function(err, results) {
+
+        histories.isTheLast(history_id, function(err, isthelast) {
             "use strict";
-
             if (err) return res.render('error_template', {err:err});
+            if (isthelast == 'n')
+              return res.redirect('/histories');
+            else {
+              histories.getHistory(history_id, function(err, result) {
+                "use strict";
+                if (err) return res.render('error_template', {err:err});
 
-            return res.render('myhistories', {
-                myhistories: results
-            });
+                stocks.tradecallback(result, function(err, callbackinfo) {
+                  if (err) return res.render('error_template', {err:err});
+                });
+              });
+
+              histories.removeHistory(history_id, function(err, results) {
+              "use strict";
+              if (err) return res.render('error_template', {err:err});
+                return res.redirect('/histories');
+              });
+            }
         });
-
-        
     }
 }
 
