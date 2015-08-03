@@ -16,7 +16,8 @@ function HistoryDAO(db) {
     this.insertEntry = function (stock_id, type, price_trade, number_trade, stock, callback) {
         "use strict";
         console.log("inserting history: " + stock_id);
-        var history = {"stock_id": stock_id,
+        var history = {"history_id": '_' + Math.random().toString(36).substr(2, 9),
+                "stock_id": stock_id,
                 'type' : type,
                 'price_trade' : price_trade,
                 'number_trade' : number_trade,
@@ -44,7 +45,7 @@ function HistoryDAO(db) {
         historyCursor.each(function(err, history) {
           if (err) return callback(err, null);
           if (history != null) {
-            if (history._id != history_id) {
+            if (history.history_id != history_id) {
               return callback(err, 'n')
             }
             else {
@@ -56,7 +57,7 @@ function HistoryDAO(db) {
 
     this.getHistory = function(history_id, callback) {
         "use strict";
-        histories.findOne({'_id': new mongodb.ObjectID(history_id)}, function(err, result) {
+        histories.findOne({'history_id': history_id}, function(err, result) {
             if (err) return callback(err, null);
             if (result) {
               callback(err, result);
@@ -69,7 +70,7 @@ function HistoryDAO(db) {
 
     this.removeHistory = function(history_id, callback) {
         "use strict";
-        histories.remove({'_id': new mongodb.ObjectID(history_id)}, function(err, numberOfRemovedDocs) {
+        histories.remove({'history_id': history_id}, function(err, numberOfRemovedDocs) {
           if (err) return callback(err, null);
             callback(err, numberOfRemovedDocs);
         });

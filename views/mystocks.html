@@ -137,7 +137,7 @@
         <td class="priceyesclose" data-title="昨收"></td>
         <td class="pricetodopen" data-title="今开"></td>
         <td class="pricenow" data-title="现价"></td>
-        <td class="pricebuy" data-title="购买价">{% if stock['price_buy'] %}{{ stock['price_buy']|round(2) }}{% else %}0{% endif %}</td>
+        <td class="pricebuy" data-title="购买价">{% if stock['price_buy'] %}{{ stock['price_buy']|floatpoint(2) }}{% else %}0{% endif %}</td>
         <td class="numberbuy" data-title="购买数">{% if stock['number_buy'] %}{{ stock['number_buy'] }}{% else %}0{% endif %}</td>
         <td class="value" data-title="价值"></td>
         <td class="positionclose" data-title="止损点"></td>

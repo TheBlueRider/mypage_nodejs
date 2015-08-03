@@ -93,12 +93,12 @@
       <tr>
         <td data-title="时间">{{ history['create_date']|date('j/m/Y')  }}</td>
         <td data-title="代码">{{ history['stock_id'] }}</td>
-        <td class="price_trade" data-title="交易价格(元)">{{ history['price_trade']|round(2) }}</td>
-        <td class="price_buy" data-title="交易时成本价格(元)">{{ history['price_buy']|round(2) }}</td>
+        <td class="price_trade" data-title="交易价格(元)">{{ history['price_trade']|floatpoint(2) }}</td>
+        <td class="price_buy" data-title="交易时成本价格(元)">{{ history['price_buy']|floatpoint(2) }}</td>
         <td class="number_trade" data-title="数量(股)">{{ history['number_trade'] }}</td>
         <td class="type" data-title="买入/卖出">{% if history['type'] == 1 %}买入{% else %}卖出{% endif %}</td>
         <td class="difference" data-title="差价"></td>
-        <td data-title="操作">{% if loop.index == 1 %}<a class="btn btn-default" href="../tradecallback/{{ history['_id'] }}">撤销{% endif %}</a></td>
+        <td data-title="操作">{% if loop.first %}<a class="btn btn-default" href="../tradecallback/{{ history['history_id'] }}">撤销{% endif %}</a></td>
       </tr>
       {% endfor %}
     </tbody>

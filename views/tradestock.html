@@ -62,7 +62,7 @@
 
       <tbody>
         <td>{{ stock['stock_id'] }}</td>
-        <td>{{ stock['price_buy']|round(2) }}</td>
+        <td>{{ stock['price_buy']|floatpoint(2) }}</td>
         <td>{{ stock['number_buy'] }}</td>
         <td>{{ stock['point'] }}</td>
       </tbody>

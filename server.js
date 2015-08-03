@@ -24,13 +24,14 @@ var express = require('express')
      "use strict";
      if(err) throw err;
 
+     swig.setFilter('floatpoint', function (input,number) {
+       return parseFloat(input).toFixed(number);
+     });
      // Register our templating engine
-     app.engine('html', cons.swig);
+     app.engine('html', swig.renderFile);
      app.set('view engine', 'html');
      app.set('views', __dirname + '/views');
      app.use(express.static(__dirname + '/public'));
-     swig.init({ root: __dirname + '/views' });
-
      // Express middleware to populate 'req.cookies' so we can access cookies
      app.use(express.cookieParser());
 
