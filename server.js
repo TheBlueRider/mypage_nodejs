@@ -53,8 +53,8 @@ var express = require('express')
        processhandle.restartprocess();
      });
 
-     //var server = app.listen(port, host);
-     var server = app.listen(8082);
+     var server = app.listen(port, host);
+     //var server = app.listen(8082);
 
      //Handle client's socket
      var sockethandle = new SocketHandle(server, eventEmitter);
