@@ -17,7 +17,6 @@ function HistoryDAO(db) {
         "use strict";
         console.log("inserting history: " + stock_id);
         var price_buy = 0;
-        console.log(stock['price_buy']);
         if (stock['price_buy'] != null)
         {
           price_buy = stock['price_buy'];

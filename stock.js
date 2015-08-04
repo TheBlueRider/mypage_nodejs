@@ -16,7 +16,6 @@ function StockDAO(db) {
         console.log("inserting stock: " + stock_id);
         var query = {"stock_id" : stock_id};
         stocks.find(query).toArray(function(err, result) {
-          console.log(result.length);
           if (result.length != 0)
             return callback(err, 'exist');
           else {
@@ -116,14 +115,13 @@ function StockDAO(db) {
         var type = parseFloat(history['type']);
         stocks.findOne({"stock_id": stock_id}, function(err, result) {
             if (err) return callback(err, null);
-            console.log(result);
             if (result) {
               var updatequery = {};
               updatequery['_id'] = result._id;
               var number_buy = parseFloat(result['number_buy']);
               var price_buy = parseFloat(result['price_buy']);
               var numbercallback = number_buy - type * number_trade;
-              if (numbercallback < 0)
+              if (numbercallback.toFixed(0) < 0)
                 return callback(new Error('数据错误'));
 
               var pricecallback = 0;
@@ -136,7 +134,6 @@ function StockDAO(db) {
                 }
               }
               var update = { $set: { number_buy: numbercallback, price_buy: pricecallback} };
-              console.log(update);
               stocks.update(updatequery, update, function (err, updatedDoc){
                 if (err) return callback(err, null);
                 callback(err, updatedDoc);

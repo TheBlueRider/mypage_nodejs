@@ -88,24 +88,41 @@ function ContentHandler (db, eventEmitter) {
       else if (trade_type === '买入')
         type = 1;
 
+
       stocks.getStock(stock_id, function(err, result) {
           "use strict";
+          if (isNaN(price_trade)) {
+              var errors = "价格必须是数字";
+              return res.render('tradestock', {
+                  stock: result,
+                  err: errors
+              });
+          }
+
+
+          if (isNaN(number_trade)) {
+              var errors = "数量必须是数字";
+              return res.render('tradestock', {
+                  stock: result,
+                  err: errors
+              });
+          }
 
           if (err) return res.render('error_template', {err:err});
 
           histories.insertEntry(stock_id, type, price_trade, number_trade, result, function(err, callbackinfo) {
           });
-      });
 
-      stocks.upadatestock(stock_id, type, price_trade, number_trade, function(err, info, valuereturn) {
-        if (err) return res.render('error_template', {err:err});
-        if (info == 'NaN') {
-          return res.render('tradestock', {
-              stock: valuereturn,
-              err: '卖出数量大于已有数量'
+          stocks.upadatestock(stock_id, type, price_trade, number_trade, function(err, info, valuereturn) {
+            if (err) return res.render('error_template', {err:err});
+            if (info == 'NaN') {
+              return res.render('tradestock', {
+                  stock: valuereturn,
+                  err: '卖出数量大于已有数量'
+              });
+            }
+            return res.redirect('/mystocks');
           });
-        }
-        return res.redirect('/mystocks');
       });
     }
 
@@ -160,7 +177,6 @@ function ContentHandler (db, eventEmitter) {
             "use strict";
             if (err) return next(err);
             if (callbackinfo == 'exist') {
-              console.log('return newstock');
               return res.render("newstock", {err: "股票已经存在于数据库"});
             }
             eventEmitter.emit('newstock', 'newstock');
