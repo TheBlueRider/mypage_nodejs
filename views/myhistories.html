@@ -98,7 +98,7 @@
         <td class="number_trade" data-title="数量(股)">{{ history['number_trade'] }}</td>
         <td class="type" data-title="买入/卖出">{% if history['type'] == 1 %}买入{% else %}卖出{% endif %}</td>
         <td class="difference" data-title="差价"></td>
-        <td data-title="操作">{% if loop.first %}<a class="btn btn-default" href="../tradecallback/{{ history['history_id'] }}">撤销{% endif %}</a></td>
+        <td data-title="操作">{% if loop.first %}<a class="btn btn-default" onclick="return confirm('确认撤销?');" href="../tradecallback/{{ history['history_id'] }}">撤销{% endif %}</a></td>
       </tr>
       {% endfor %}
     </tbody>

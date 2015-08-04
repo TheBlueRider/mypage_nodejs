@@ -16,12 +16,18 @@ function HistoryDAO(db) {
     this.insertEntry = function (stock_id, type, price_trade, number_trade, stock, callback) {
         "use strict";
         console.log("inserting history: " + stock_id);
+        var price_buy = 0;
+        console.log(stock['price_buy']);
+        if (stock['price_buy'] != null)
+        {
+          price_buy = stock['price_buy'];
+        }
         var history = {"history_id": '_' + Math.random().toString(36).substr(2, 9),
                 "stock_id": stock_id,
                 'type' : type,
                 'price_trade' : price_trade,
                 'number_trade' : number_trade,
-                'price_buy' : stock['price_buy'],
+                'price_buy' : price_buy,
                 "create_date": new Date()}
         histories.insert(history, function (err, result) {
           if (err) return callback(err, null);
@@ -74,6 +80,14 @@ function HistoryDAO(db) {
           if (err) return callback(err, null);
             callback(err, numberOfRemovedDocs);
         });
+    }
+
+    this.removeStockHistory = function(stock_id, callback) {
+      "use strict";
+      histories.remove({'stock_id': stock_id}, function(err, numberOfRemovedDocs) {
+        if (err) return callback(err, null);
+          callback(err, numberOfRemovedDocs);
+      });
     }
 }
 

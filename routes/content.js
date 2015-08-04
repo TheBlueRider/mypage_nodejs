@@ -20,11 +20,6 @@ function ContentHandler (db, eventEmitter) {
         return res.render('present', {});
     }
 
-    this.gestionstock = function(req, res, next) {
-      "use strict"
-      console.log("commencer de gerer stock");
-    }
-
     this.displayStocksPage = function(req, res, next) {
         "use strict";
         //console.log("Cookies: ", req.cookies);
@@ -73,6 +68,11 @@ function ContentHandler (db, eventEmitter) {
             if (err) return res.render('error_template', {err:err});
 
             return res.redirect('/mystocks');
+        });
+
+        histories.removeStockHistory(stock_id, function(err, numberOfRemovedDocs) {
+            "use strict";
+            if (err) console.log(err);
         });
     }
 
