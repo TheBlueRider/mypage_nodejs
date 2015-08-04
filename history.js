@@ -36,7 +36,7 @@ function HistoryDAO(db) {
     this.getAllHistories = function(callback) {
         "use strict";
 
-        histories.find({}).sort({date:-1}).toArray(function(err, items) {
+        histories.find({}).sort({create_date:-1}).toArray(function(err, items) {
             "use strict";
             if (err) return callback(err, null);
 
@@ -46,7 +46,7 @@ function HistoryDAO(db) {
 
     this.isTheLast = function(history_id, callback) {
         "use strict";
-        var historyCursor = histories.find({}).sort({date:-1}).limit(1);
+        var historyCursor = histories.find({}).sort({create_date:-1}).limit(1);
         historyCursor.each(function(err, history) {
           if (err) return callback(err, null);
           if (history != null) {
