@@ -51,10 +51,10 @@ function HistoryDAO(db) {
           if (err) return callback(err, null);
           if (history != null) {
             if (history.history_id != history_id) {
-              return callback(err, 'n')
+              return callback(err, false, history)
             }
             else {
-              return callback(err, 'y');
+              return callback(err, true, history);
             }
           }
         });

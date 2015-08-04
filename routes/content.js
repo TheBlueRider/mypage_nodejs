@@ -111,6 +111,8 @@ function ContentHandler (db, eventEmitter) {
           if (err) return res.render('error_template', {err:err});
 
           histories.insertEntry(stock_id, type, price_trade, number_trade, result, function(err, callbackinfo) {
+            "use strict";
+            if (err) return res.render('error_template', {err:err});
           });
 
           stocks.upadatestock(stock_id, type, price_trade, number_trade, function(err, info, valuereturn) {
@@ -212,26 +214,22 @@ function ContentHandler (db, eventEmitter) {
     this.tradeCallBack = function(req, res, next) {
         "use strict";
         var history_id = req.params.history_id;
-
-        histories.isTheLast(history_id, function(err, isthelast) {
+        histories.isTheLast(history_id, function(err, isthelast, history) {
             "use strict";
             if (err) return res.render('error_template', {err:err});
-            if (isthelast == 'n')
+            if (!isthelast)
               return res.redirect('/histories');
             else {
-              histories.getHistory(history_id, function(err, result) {
+
+              stocks.tradecallback(history, function(err, callbackinfo) {
                 "use strict";
                 if (err) return res.render('error_template', {err:err});
-
-                stocks.tradecallback(result, function(err, callbackinfo) {
-                  if (err) return res.render('error_template', {err:err});
-                });
               });
 
               histories.removeHistory(history_id, function(err, results) {
-              "use strict";
-              if (err) return res.render('error_template', {err:err});
-                return res.redirect('/histories');
+                "use strict";
+                if (err) return res.render('error_template', {err:err});
+                  return res.redirect('/histories');
               });
             }
         });

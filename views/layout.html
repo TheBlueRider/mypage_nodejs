@@ -14,17 +14,34 @@
   {% endblock %}
   </head>
   <body>
+    <div class="layerloading">
+      <img src="/img/layout-loading.png" class="layerbackground" alt="layerbackground">
+    </div>
+    <div class="loading">
+      <div class="content">
+        <div class="stop circle"></div>
+        <div class="stop circle1"></div>
+      </div>
+    </div>
     {% block content %}
     {% endblock %}
   </body>
   <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
-  {% block javascript %}
   <script>
+  function loadingbegin() {
+    $('.circle, .circle1').removeClass('stop');
+    $('.loading').show();
+    $('.layerloading').show();
+  }
 
-  swig.setFilter('round', function (input, number) {
-    return input.toFixed(number);
-  });
+  function loadingfinish() {
+    $('.loading').hide();
+    $('.layerloading').hide();
+    $('.circle, .circle1').toggleClass('stop');
+  }
+
   </script>
+  {% block javascript %}
   {% endblock %}
 </html>
