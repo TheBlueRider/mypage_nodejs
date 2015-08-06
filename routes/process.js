@@ -15,7 +15,7 @@ function ProccessHandle(db, eventEmitter) {
 
         for (var index= 0; index < results.length; index++)
         {
-          stockstring += 'sh'+results[index]['stock_id']+',';
+          stockstring += results[index]['market']+results[index]['stock_id']+',';
         }
 
         gdprocess = childprocess.fork(__dirname + '/getdata.js', [stockstring]);

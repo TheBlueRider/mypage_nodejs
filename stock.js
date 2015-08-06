@@ -11,7 +11,7 @@ function StockDAO(db) {
 
     var stocks = db.collection("stocks");
 
-    this.insertEntry = function (stock_id, price_buy, number_buy, callback) {
+    this.insertEntry = function (stock_id, price_buy, number_buy, market_code, callback) {
         "use strict";
         console.log("inserting stock: " + stock_id);
         var query = {"stock_id" : stock_id};
@@ -28,6 +28,7 @@ function StockDAO(db) {
             if (number_buy != "")
               stock['number_buy'] = number_buy;
 
+            stock['market'] = market_code;
             // now insert the stock
             stocks.insert(stock, function (err, result) {
                 "use strict";

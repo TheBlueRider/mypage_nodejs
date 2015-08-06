@@ -157,6 +157,8 @@ function ContentHandler (db, eventEmitter) {
         var stock_id = req.body.stock_id;
         var price_buy = req.body.price_buy;
         var number_buy = req.body.number_buy;
+        var market = req.body.market;
+        var market_code = "sh";
 
         if (!stock_id) {
             var errors = "请输入股票代码";
@@ -173,9 +175,12 @@ function ContentHandler (db, eventEmitter) {
             var errors = "数量必须是数字";
             return res.render("newstock", {err: errors});
         }
-
-
-        stocks.insertEntry(stock_id, price_buy, number_buy,  function(err, callbackinfo) {
+        console.log(market);
+        if (market == "深证股")
+        {
+          market_code = "sz";
+        }
+        stocks.insertEntry(stock_id, price_buy, number_buy, market_code,  function(err, callbackinfo) {
             "use strict";
             if (err) return next(err);
             if (callbackinfo == 'exist') {
