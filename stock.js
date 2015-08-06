@@ -58,7 +58,7 @@ function StockDAO(db) {
     this.getAllStocks = function(callback) {
         "use strict";
 
-        stocks.find({}).toArray(function(err, items) {
+        stocks.find({}).sort(create_date : 1).toArray(function(err, items) {
             "use strict";
             if (err) return callback(err, null);
 
