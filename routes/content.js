@@ -1,4 +1,4 @@
-var StockDAO = require('../stock').StockDAO
+  var StockDAO = require('../stock').StockDAO
   , HistoryDAO = require('../history').HistoryDAO
   , sanitize = require('validator').sanitize
   , mongodb = require('mongodb'); // Helper to sanitize form input
@@ -15,7 +15,12 @@ function ContentHandler (db, eventEmitter) {
         return res.render('index', {});
     }
 
-    this.displayIndexPage = function(req, res, next) {
+    this.displayMapPage = function(req, res, next) {
+        "use strict";
+        return res.render('map', {});
+    }
+
+    this.displayPresentPage = function(req, res, next) {
         "use strict";
         return res.render('present', {});
     }
@@ -225,7 +230,6 @@ function ContentHandler (db, eventEmitter) {
             if (!isthelast)
               return res.redirect('/histories');
             else {
-
               stocks.tradecallback(history, function(err, callbackinfo) {
                 "use strict";
                 if (err) return res.render('error_template', {err:err});
