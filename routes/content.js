@@ -70,6 +70,7 @@ function ContentHandler (db, eventEmitter) {
         stocks.removeStock(stock_id, function(err, numberOfRemovedDocs) {
             "use strict";
 
+            console.log(req.params.stock_id);
             if (err) return res.render('error_template', {err:err});
 
             return res.redirect('/mystocks');
