@@ -1,113 +1,113 @@
-{%extends'layout.html'%}
-{%blocktitle%}
+{% extends 'layout.html' %}
+{% block title %}
 	<title>股票</title>
-{%endblock%}
-{%blockstyle%}
-<style>
-.navbar-nav>li>a,.navbar-brand{
-color:white!important;
-border-radius:0.3em;
-}
+{% endblock %}
+{% block style %}
+  <style>
+  .navbar-nav>li>a, .navbar-brand {
+    color: white !important;
+    border-radius: 0.3em;
+  }
 
-.navbar-nav>li>a:hover,.navbar-brand:hover{
-color:rgba(175,182,187,1)!important;
-}
+  .navbar-nav>li>a:hover, .navbar-brand:hover {
+    color: rgba(175, 182, 187, 1) !important;
+  }
 
-.navbar-nav>.active>a{
-background-color:white!important;
-color:rgba(33,47,63,1)!important;
-}
-</style>
-{%endblock%}
+  .navbar-nav > .active > a {
+      background-color: white !important;
+      color: rgba(33, 47, 63, 1) !important;
+  }
+  </style>
+{% endblock %}
 
-{%blockjavascript%}
-<scriptsrc="https://cdn.socket.io/socket.io-1.3.5.js"></script>
-<scriptsrc="js/mystocks.js"></script>
-{%endblock%}
+{% block javascript %}
+  <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
+  <script src="js/mystocks.js"></script>
+{% endblock %}
 
-{%blockcontent%}
-<navclass="navbarnavbar-inverse">
-<divclass="container">
-<divclass="navbar-header">
-<buttontype="button"class="navbar-togglecollapsed"data-toggle="collapse"data-target="#mongodb-navbar-collapse-1">
-<spanclass="sr-only">Togglenavigation</span>
-<spanclass="icon-bar"></span>
-<spanclass="icon-bar"></span>
-<spanclass="icon-bar"></span>
-</button>
-<aclass="navbar-brand"href="/">TheBlueRider</a>
-</div>
+{% block content %}
+  <nav class="navbar navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mongodb-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">TheBlueRider</a>
+      </div>
 
-<divclass="collapsenavbar-collapse"id="mongodb-navbar-collapse-1">
-<ulclass="navnavbar-navnavbar-right">
-<liclass="active">
-<ahref="#"class="dropdown-toggle"data-toggle="dropdown"role="button"aria-expanded="false">股票<spanclass="caret"></span></a>
-<ulclass="dropdown-menu"role="stock">
-<li><ahref="/newstock">添加</a></li>
-<li><ahref="/mystocks">查看</a></li>
-<li><ahref="/histories">交易历史</a></li>
-</ul>
-</li>
-<li><ahref="#"target="_blank">Contact</a></li>
-</ul>
-</div><!--END.navbar-collapse-->
-</div><!--END.container-fluid-->
-</nav>
+      <div class="collapse navbar-collapse" id="mongodb-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">股票<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="stock">
+              <li><a href="/newstock">添加</a></li>
+              <li><a href="/mystocks">查看</a></li>
+              <li><a href="/histories">交易历史</a></li>
+            </ul>
+          </li>
+          <li><a href="#" target="_blank">Contact</a></li>
+        </ul>
+      </div><!-- END .navbar-collapse -->
+    </div><!-- END .container-fluid -->
+  </nav>
 
 <div>
-<divclass="containertab-responsive>">
-<tableclass="table"id="stock_table">
-<caption>股票</caption>
-<thead>
-<tr>
-<th>代码</th>
-<th>股票名</th>
-<th>昨收(元)</th>
-<th>今开(元)</th>
-<th>现价(元)</th>
-<th>购买价(元)</th>
-<th>购买数(股)</th>
-<th>价值(万)</th>
-<th>止损点(元)</th>
-<th>操作</th>
-<th>k线图</th>
-</tr>
-</thead>
-<tbody>
-{%forstockinmystocks%}
-<tr>
-<tdclass="stockid"data-title="代码">{{stock['stock_id']}}</td>
-<tdclass="stockname"data-title="股票名"></td>
-<tdclass="priceyesclose"data-title="昨收"></td>
-<tdclass="pricetodopen"data-title="今开"></td>
-<tdclass="pricenow"data-title="现价"></td>
-<tdclass="pricebuy"data-title="购买价">{%ifstock['price_buy']%}{{stock['price_buy']|floatpoint(2)}}{%else%}0{%endif%}</td>
-<tdclass="numberbuy"data-title="购买数">{%ifstock['number_buy']%}{{stock['number_buy']}}{%else%}0{%endif%}</td>
-<tdclass="value"data-title="价值"></td>
-<tdclass="positionclose"data-title="止损点"></td>
-				<tdclass="do"data-title="操作">
-					<aclass="btnbtn-default"href="../trade/{{stock['stock_id']}}">购/售</a>
-					<aclass="btnbtn-default"href="../remove/{{stock['stock_id']}}" onclick="getConfirm(this.href);">删除</a>
+  <div class="container tab-responsive>">
+    <table class="table" id="stock_table">
+      <caption>股票</caption>
+      <thead>
+      <tr>
+        <th>代码</th>
+        <th>股票名</th>
+        <th>昨收(元)</th>
+        <th>今开(元)</th>
+        <th>现价(元)</th>
+        <th>购买价(元)</th>
+        <th>购买数(股)</th>
+        <th>价值(万)</th>
+        <th>止损点(元)</th>
+        <th>操作</th>
+        <th>k线图</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for stock in mystocks %}
+      <tr>
+        <td class="stockid" data-title="代码">{{ stock['stock_id'] }}</td>
+        <td class="stockname" data-title="股票名"></td>
+        <td class="priceyesclose" data-title="昨收"></td>
+        <td class="pricetodopen" data-title="今开"></td>
+        <td class="pricenow" data-title="现价"></td>
+        <td class="pricebuy" data-title="购买价">{% if stock['price_buy'] %}{{ stock['price_buy']|floatpoint(2) }}{% else %}0{% endif %}</td>
+        <td class="numberbuy" data-title="购买数">{% if stock['number_buy'] %}{{ stock['number_buy'] }}{% else %}0{% endif %}</td>
+        <td class="value" data-title="价值"></td>
+        <td class="positionclose" data-title="止损点"></td>
+				<td class="do" data-title="操作">
+					<a class="btn btn-default" href="../trade/{{ stock['stock_id'] }}">购/售</a>
+					<a class="btn btn-default" href="removestock({{ stock['stock_id'] }});"  onclick = "getConfirm(this.href);">删除</button>
 				</td>
-<tddata-title="k线图"><aclass="btnbtn-default"href="../candlestick/{{stock['stock_id']}}">查看</a></td>
-</tr>
-{%endfor%}
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<tdid="value_total"></td>
-<td></td>
-<td></td>
+        <td data-title="k线图"><a class="btn btn-default" href="../candlestick/{{ stock['stock_id'] }}">查看</a></td>
+      </tr>
+      {% endfor %}
+			<tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td id="value_total"></td>
+        <td></td>
+        <td></td>
 				<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+        <td></td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
 </div>
-</div>
-{%endblock%}}
+{% endblock %}}
