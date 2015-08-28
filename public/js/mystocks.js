@@ -1,6 +1,6 @@
 var price = 'none';
-//var socket = io.connect('https://bluerider-haochenyao.rhcloud.com:8443');
-var socket = io.connect('http://localhost:8082');
+var socket = io.connect('https://bluerider-haochenyao.rhcloud.com:8443');
+//var socket = io.connect('http://localhost:8082');
 socket.on('newinfos', function(message) {
   var value_total = 0;
   var different_total = 0;
