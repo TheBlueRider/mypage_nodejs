@@ -49,7 +49,7 @@ var express = require('express')
      //create updatelistener
      updatehandle.createlistener();
 
-     eventEmitter.on('newstock', function (message) {
+     eventEmitter.on('restartprocess', function (message) {
        processhandle.restartprocess();
      });
 

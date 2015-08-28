@@ -70,8 +70,8 @@ function ContentHandler (db, eventEmitter) {
         stocks.removeStock(stock_id, function(err, numberOfRemovedDocs) {
             "use strict";
 
-            console.log(req.params.stock_id);
             if (err) return res.render('error_template', {err:err});
+            eventEmitter.emit('restartprocess', 'newstock');
 
             return res.redirect('/mystocks');
         });
@@ -192,7 +192,7 @@ function ContentHandler (db, eventEmitter) {
             if (callbackinfo == 'exist') {
               return res.render("newstock", {err: "股票已经存在于数据库"});
             }
-            eventEmitter.emit('newstock', 'newstock');
+            eventEmitter.emit('restartprocess', 'newstock');
             return res.redirect("/mystocks");
             // now redirect to the blog permalink
         });
