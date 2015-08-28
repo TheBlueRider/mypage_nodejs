@@ -87,7 +87,7 @@
         <td class="positionclose" data-title="止损点"></td>
 				<td class="do" data-title="操作">
 					<a class="btn btn-default" href="../trade/{{ stock['stock_id'] }}">购/售</a>
-					<a class="btn btn-default" href="removestock({{ stock['stock_id'] }});"  onclick = "getConfirm(this.href);">删除</button>
+					<a class="btn btn-default" href="../remove/{{ stock['stock_id'] }}"  onclick = "getConfirm(this.href);">删除</a>
 				</td>
         <td data-title="k线图"><a class="btn btn-default" href="../candlestick/{{ stock['stock_id'] }}">查看</a></td>
       </tr>
