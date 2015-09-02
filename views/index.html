@@ -28,6 +28,45 @@
   width:100%;
   border-top: 1px solid white;
 }
+
+.onhovertext {
+	opacity: 0;
+	position:absolute;
+	width:180px;
+	height:180px;
+	margin-top:-180px;
+	margin-left:-90px;
+	background: rgba(255,255,255,0.9);
+	border-radius: 100%;
+	text-align: center;
+	padding-top: 40px;
+	font-size: 30px;
+}
+
+.onhovertext:hover{
+	opacity: 1;
+	animation-name: onhovertextanimation;
+	animation-duration: 0.5s;
+	animation-direction: alternate;
+ 	animation-fill-mode: none;
+ 	animation-play-state: running;
+  animation-timing-function: ease-out;
+	text-decoration: none;
+}
+
+@keyframes onhovertextanimation {
+	0% {
+	 transform: scale(0.95);
+	}
+	100% {
+	 transform: scale(1);
+	}
+}
+
+.onhovertext>span{
+	font-size: 5px;
+	color: #888;
+}
 </style>
 {% endblock %}
 
@@ -58,8 +97,22 @@
     </nav>
 
       <div align=center style="margin-top:5em;">
-        <img class="img-circle item-not-mobile" style="border:5px solid black;" src="img/Y.jpg" alt="Y" width="180" height="180">
-        <img class="img-circle"  border="5px" src="img/myportail.png" alt="Myphoto" width="180" height="180">
+				<div style="display:inline-block;">
+					<img class="img-circle item-not-mobile" style="border:5px solid black;" src="img/Y.jpg" alt="Y" width="180" height="180">
+					<a class="onhovertext" href="#">
+						我的设计<br/>
+						<span>设计工具: Photoshop, Sketch, Hype3</span>
+					</a>
+				</div>
+
+				<div style="display:inline-block;">
+					<img class="img-circle"  style="border:5px solid white;" src="img/myphoto.JPG" alt="Myphoto" width="180" height="180">
+					<a class="onhovertext" href="/me">
+						Moi<br/>
+						<span>Qui est moi?<br/>D'Où viens-je?<br/>Où vais-je?</br></span>
+					</a>
+				</div>
+
       </div>
       <div>
         <div class="blueridertext">Welcome to my page</div>
